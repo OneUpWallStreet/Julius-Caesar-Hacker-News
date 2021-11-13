@@ -12,6 +12,8 @@
 		18E19483273FB5A40092D4DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19482273FB5A40092D4DE /* ViewController.swift */; };
 		18E19488273FB5A50092D4DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E19487273FB5A50092D4DE /* Assets.xcassets */; };
 		18E1948B273FB5A50092D4DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18E19489273FB5A50092D4DE /* LaunchScreen.storyboard */; };
+		18E19493273FC4A60092D4DE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19492273FC4A60092D4DE /* HomeViewController.swift */; };
+		18E19495273FC4F60092D4DE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19494273FC4F60092D4DE /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		18E19487273FB5A50092D4DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18E1948A273FB5A50092D4DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18E1948C273FB5A50092D4DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18E19492273FC4A60092D4DE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		18E19494273FC4F60092D4DE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				18E1947E273FB5A40092D4DE /* AppDelegate.swift */,
 				18E19480273FB5A40092D4DE /* SceneDelegate.swift */,
 				18E19482273FB5A40092D4DE /* ViewController.swift */,
+				18E19494273FC4F60092D4DE /* ProfileViewController.swift */,
+				18E19492273FC4A60092D4DE /* HomeViewController.swift */,
 				18E19487273FB5A50092D4DE /* Assets.xcassets */,
 				18E19489273FB5A50092D4DE /* LaunchScreen.storyboard */,
 				18E1948C273FB5A50092D4DE /* Info.plist */,
@@ -136,7 +142,9 @@
 			files = (
 				18E19483273FB5A40092D4DE /* ViewController.swift in Sources */,
 				18E1947F273FB5A40092D4DE /* AppDelegate.swift in Sources */,
+				18E19495273FC4F60092D4DE /* ProfileViewController.swift in Sources */,
 				18E19481273FB5A40092D4DE /* SceneDelegate.swift in Sources */,
+				18E19493273FC4A60092D4DE /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
