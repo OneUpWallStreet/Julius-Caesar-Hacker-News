@@ -14,6 +14,9 @@
 		18E1948B273FB5A50092D4DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18E19489273FB5A50092D4DE /* LaunchScreen.storyboard */; };
 		18E19493273FC4A60092D4DE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19492273FC4A60092D4DE /* HomeViewController.swift */; };
 		18E19495273FC4F60092D4DE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19494273FC4F60092D4DE /* ProfileViewController.swift */; };
+		18E19499273FE0AE0092D4DE /* HackerNewsAPIsURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19498273FE0AE0092D4DE /* HackerNewsAPIsURLs.swift */; };
+		18E1949C273FE16C0092D4DE /* HomePageInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1949B273FE16C0092D4DE /* HomePageInteraction.swift */; };
+		18E1949F274008150092D4DE /* HackerNewsPostitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1949E274008150092D4DE /* HackerNewsPostitem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		18E1948C273FB5A50092D4DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18E19492273FC4A60092D4DE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		18E19494273FC4F60092D4DE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		18E19498273FE0AE0092D4DE /* HackerNewsAPIsURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsAPIsURLs.swift; sourceTree = "<group>"; };
+		18E1949B273FE16C0092D4DE /* HomePageInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageInteraction.swift; sourceTree = "<group>"; };
+		18E1949E274008150092D4DE /* HackerNewsPostitem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsPostitem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +64,10 @@
 		18E1947D273FB5A40092D4DE /* Caesar */ = {
 			isa = PBXGroup;
 			children = (
+				18E194A0274035F80092D4DE /* Model */,
+				18E1949D274007DE0092D4DE /* Networking Schema */,
 				18E1947E273FB5A40092D4DE /* AppDelegate.swift */,
+				18E1949A273FE1270092D4DE /* Interact with HackerNews */,
 				18E19480273FB5A40092D4DE /* SceneDelegate.swift */,
 				18E19482273FB5A40092D4DE /* ViewController.swift */,
 				18E19494273FC4F60092D4DE /* ProfileViewController.swift */,
@@ -68,6 +77,30 @@
 				18E1948C273FB5A50092D4DE /* Info.plist */,
 			);
 			path = Caesar;
+			sourceTree = "<group>";
+		};
+		18E1949A273FE1270092D4DE /* Interact with HackerNews */ = {
+			isa = PBXGroup;
+			children = (
+				18E19498273FE0AE0092D4DE /* HackerNewsAPIsURLs.swift */,
+				18E1949B273FE16C0092D4DE /* HomePageInteraction.swift */,
+			);
+			path = "Interact with HackerNews";
+			sourceTree = "<group>";
+		};
+		18E1949D274007DE0092D4DE /* Networking Schema */ = {
+			isa = PBXGroup;
+			children = (
+				18E1949E274008150092D4DE /* HackerNewsPostitem.swift */,
+			);
+			path = "Networking Schema";
+			sourceTree = "<group>";
+		};
+		18E194A0274035F80092D4DE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,8 +174,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				18E19483273FB5A40092D4DE /* ViewController.swift in Sources */,
+				18E1949F274008150092D4DE /* HackerNewsPostitem.swift in Sources */,
 				18E1947F273FB5A40092D4DE /* AppDelegate.swift in Sources */,
+				18E1949C273FE16C0092D4DE /* HomePageInteraction.swift in Sources */,
 				18E19495273FC4F60092D4DE /* ProfileViewController.swift in Sources */,
+				18E19499273FE0AE0092D4DE /* HackerNewsAPIsURLs.swift in Sources */,
 				18E19481273FB5A40092D4DE /* SceneDelegate.swift in Sources */,
 				18E19493273FC4A60092D4DE /* HomeViewController.swift in Sources */,
 			);
