@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         LoadPosts()
         tempButton()
         SetUpCollectionView()
@@ -39,18 +40,19 @@ class HomeViewController: UIViewController {
         
         postCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         postCollection.translatesAutoresizingMaskIntoConstraints = false
-        postCollection.backgroundColor = .clear
-        view.addSubview(postCollection)
-        
-        
+        postCollection.backgroundColor = .yellow
+        postCollection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: postCollectionIdentifier)
         postCollection.delegate = self
         postCollection.dataSource = self
-        
+        view.addSubview(postCollection)
+
         NSLayoutConstraint.activate([
             postCollection.topAnchor.constraint(equalTo: reloadButton.bottomAnchor, constant: 20),
-            postCollection.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            postCollection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            postCollection.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            postCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            postCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
-                
     }
     
     
@@ -70,14 +72,13 @@ class HomeViewController: UIViewController {
             reloadButton.heightAnchor.constraint(equalToConstant: 50),
             reloadButton.widthAnchor.constraint(equalToConstant: 200)
         ])
-        
-        
     }
     
     @objc func reloadYay() {
-        print("PRessed something")
+        postCollection.reloadData()
+//        print("\n")
+//        print("Posts: \(Posts)")
     }
-    
 
     //Loading Posts from HomeModel, the API gets top posts one at a time, so this function gets the top-20 posts
     private func LoadPosts() {
@@ -91,21 +92,23 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = (collectionView.frame.width - 12) / 2
-        return CGSize(width: size, height: size)
+        return CGSize(width: postCollection.frame.width, height: 200)
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("Posts.count: \(Posts.count)")
         return Posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = postCollection.dequeueReusableCell(withReuseIdentifier: postCollectionIdentifier, for: indexPath) as! HomeCollectionViewCell
         let post = Posts[indexPath.item]
-        cell.ConfigurePost(post)        
+        cell.ConfigurePost(post)
         return cell
     }
     

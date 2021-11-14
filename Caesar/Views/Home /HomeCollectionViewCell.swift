@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 extension Int {
     func convertToString(_ number: Int) -> String{
         return "\(number)"
@@ -16,8 +15,7 @@ extension Int {
 
 class HomeCollectionViewCell: UICollectionViewCell {
     
-    
-    let title: UILabel = UILabel()
+    let title: UITextView = UITextView()
     let score: UILabel = UILabel()
     let by: UILabel = UILabel()
     
@@ -26,8 +24,10 @@ class HomeCollectionViewCell: UICollectionViewCell {
         
         title.translatesAutoresizingMaskIntoConstraints = false
         title.textColor = UIColor.red
+        title.backgroundColor = .yellow
+        title.isScrollEnabled = false
         contentView.addSubview(title)
-        
+
         score.translatesAutoresizingMaskIntoConstraints = false
         score.textColor = UIColor.red
         contentView.addSubview(score)
@@ -37,7 +37,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(by)
         
         SetUpConstraints()
-    
     }
     
     func ConfigurePost(_ post: HackerNewsSingleItem) {
@@ -50,19 +49,21 @@ class HomeCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            score.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
-            score.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            score.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20),
+            score.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            score.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            by.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            by.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
+            by.topAnchor.constraint(equalTo: score.bottomAnchor, constant: 20),
+            by.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            by.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
-        
     }
     
     required init?(coder: NSCoder) {
