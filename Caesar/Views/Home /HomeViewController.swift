@@ -7,15 +7,16 @@
 
 import UIKit
 
+
 class HomeViewController: UIViewController {
     
     var homeModel: HomeModel = HomeModel()
     
 //  This array will get updated everytime homeModel.GetTopPosts() gets a response.
     var Posts: Array<HackerNewsSingleItem> = []
+    
     var postCollection: UICollectionView!
     let postCollectionIdentifier = "postCollectionIdentifier"
-    var reloadButton: UIButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()

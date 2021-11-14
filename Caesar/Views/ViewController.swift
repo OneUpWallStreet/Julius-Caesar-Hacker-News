@@ -43,7 +43,6 @@ class ViewController: UITabBarController {
             item.image = UIImage(systemName: images[index])
         }
 
-//        HomePageInteraction.GetTopPosts()
     }
 
 }

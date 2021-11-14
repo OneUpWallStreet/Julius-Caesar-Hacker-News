@@ -18,6 +18,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     let title: UITextView = UITextView()
     let score: UITextView = UITextView()
     let by: UITextView = UITextView()
+    let favIcon: UIImageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,13 +38,34 @@ class HomeCollectionViewCell: UICollectionViewCell {
         by.textColor = UIColor.black
         contentView.addSubview(by)
         
+        favIcon.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(favIcon)
+        
         SetUpConstraints()
     }
     
+    func getFavIcon(_ websiteDomain: String) {
+        let imageURL: String = GeneralURLs.googleFavIconFetcher + "\(websiteDomain)"
+        let url = URL(string: imageURL)
+        if let data = try? Data(contentsOf: url!) {
+            favIcon.image = UIImage(data: data)
+        }
+        else {
+            print("In else hello")
+            let url = URL(string: GeneralURLs.fallbackFaviconURL)
+            let fallbackData = try? Data(contentsOf: url!)
+            favIcon.image = UIImage(data: fallbackData!)
+        }
+    }
+    
     func ConfigurePost(_ post: HackerNewsSingleItem) {
+        
         title.text = post.title
         score.text = 0.convertToString(post.score)
         by.text = post.by
+        
+        getFavIcon(post.url)
+        
     }
     
     func SetUpConstraints() {
@@ -64,6 +86,13 @@ class HomeCollectionViewCell: UICollectionViewCell {
             by.topAnchor.constraint(equalTo: score.bottomAnchor, constant: 20),
             by.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             by.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            favIcon.topAnchor.constraint(equalTo: by.bottomAnchor, constant: 10),
+            favIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            favIcon.heightAnchor.constraint(equalToConstant: 40),
+            favIcon.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
     
