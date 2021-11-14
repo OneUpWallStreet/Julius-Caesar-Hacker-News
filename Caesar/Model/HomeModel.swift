@@ -8,7 +8,6 @@
 import Foundation
 
 class HomeModel {
-//    var Posts: Array<HackerNewsSingleItem> = []
     
     func GetTopPosts(completion: @escaping (HackerNewsSingleItem) -> Void) {
                 
