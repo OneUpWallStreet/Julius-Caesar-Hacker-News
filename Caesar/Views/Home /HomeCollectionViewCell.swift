@@ -16,24 +16,25 @@ extension Int {
 class HomeCollectionViewCell: UICollectionViewCell {
     
     let title: UITextView = UITextView()
-    let score: UILabel = UILabel()
-    let by: UILabel = UILabel()
+    let score: UITextView = UITextView()
+    let by: UITextView = UITextView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.textColor = UIColor.red
-        title.backgroundColor = .yellow
+        title.textColor = UIColor.black
         title.isScrollEnabled = false
         contentView.addSubview(title)
 
         score.translatesAutoresizingMaskIntoConstraints = false
-        score.textColor = UIColor.red
+        score.textColor = UIColor.black
+        score.isScrollEnabled = false
         contentView.addSubview(score)
         
         by.translatesAutoresizingMaskIntoConstraints = false
-        by.textColor = UIColor.red
+        by.isScrollEnabled = false
+        by.textColor = UIColor.black
         contentView.addSubview(by)
         
         SetUpConstraints()

@@ -22,16 +22,14 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         
         LoadPosts()
-        tempButton()
         SetUpCollectionView()
-
     }
     
+//  Sets up a collectionView for top posts from Hacker News
     private func SetUpCollectionView() {
         let cellPadding: CGFloat = 10
         let sectionPadding: CGFloat = 5
         let layout = UICollectionViewFlowLayout()
-        
         
         layout.minimumLineSpacing = cellPadding
         layout.minimumInteritemSpacing = sectionPadding
@@ -40,14 +38,13 @@ class HomeViewController: UIViewController {
         
         postCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         postCollection.translatesAutoresizingMaskIntoConstraints = false
-        postCollection.backgroundColor = .yellow
         postCollection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: postCollectionIdentifier)
         postCollection.delegate = self
         postCollection.dataSource = self
         view.addSubview(postCollection)
 
         NSLayoutConstraint.activate([
-            postCollection.topAnchor.constraint(equalTo: reloadButton.bottomAnchor, constant: 20),
+            postCollection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             postCollection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             postCollection.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             postCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -55,38 +52,18 @@ class HomeViewController: UIViewController {
         ])
     }
     
-    
-    private func tempButton() {
-        
-        reloadButton.setTitle("reload", for: .normal)
-        reloadButton.translatesAutoresizingMaskIntoConstraints = false
-        reloadButton.setTitleColor(.red, for: .normal)
-        reloadButton.layer.borderWidth = 1
-        reloadButton.layer.borderColor = UIColor.yellow.cgColor
-        reloadButton.addTarget(self, action: #selector(reloadYay), for: .touchUpInside)
-        view.addSubview(reloadButton)
-        
-        NSLayoutConstraint.activate([
-            reloadButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            reloadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            reloadButton.heightAnchor.constraint(equalToConstant: 50),
-            reloadButton.widthAnchor.constraint(equalToConstant: 200)
-        ])
-    }
-    
-    @objc func reloadYay() {
-        postCollection.reloadData()
-//        print("\n")
-//        print("Posts: \(Posts)")
-    }
+
 
     //Loading Posts from HomeModel, the API gets top posts one at a time, so this function gets the top-20 posts
     private func LoadPosts() {
         homeModel.GetTopPosts { post in
             self.Posts.append(post)
+//          I want to reload the page when 5:(arbitary/temp-number) posts are fetched from the server
+            if self.Posts.count == HomeModel.HomePagePostCount {
+                self.postCollection.reloadData()
+            }
         }
     }
-    
 }
 
 
@@ -116,3 +93,26 @@ extension HomeViewController: UICollectionViewDataSource {
 }
 
 
+
+
+//private func tempButton() {
+//
+//    reloadButton.setTitle("reload", for: .normal)
+//    reloadButton.translatesAutoresizingMaskIntoConstraints = false
+//    reloadButton.setTitleColor(.red, for: .normal)
+//    reloadButton.layer.borderWidth = 1
+//    reloadButton.layer.borderColor = UIColor.yellow.cgColor
+//    reloadButton.addTarget(self, action: #selector(reloadYay), for: .touchUpInside)
+//    view.addSubview(reloadButton)
+//
+//    NSLayoutConstraint.activate([
+//        reloadButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+//        reloadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//        reloadButton.heightAnchor.constraint(equalToConstant: 50),
+//        reloadButton.widthAnchor.constraint(equalToConstant: 200)
+//    ])
+//}
+//
+//@objc func reloadYay() {
+//    postCollection.reloadData()
+//}

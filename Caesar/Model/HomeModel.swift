@@ -9,11 +9,14 @@ import Foundation
 
 class HomeModel {
     
+    
+    static let HomePagePostCount: Int = 5
+    
     func GetTopPosts(completion: @escaping (HackerNewsSingleItem) -> Void) {
                 
         HomePageInteraction.GetTopPostIDS { ids in
             for (index,id) in ids.enumerated() {
-                if index == 5 { break }
+                if index == HomeModel.HomePagePostCount { break }
                 HomePageInteraction.GetTopPosts(id: id) { post in
                     completion(post)
                 }
