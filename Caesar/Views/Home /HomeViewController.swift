@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class HomeViewController: UIViewController {
     
     var homeModel: HomeModel = HomeModel()
@@ -52,8 +51,6 @@ class HomeViewController: UIViewController {
             postCollection.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
-    
-
 
     //Loading Posts from HomeModel, the API gets top posts one at a time, so this function gets the top-20 posts
     private func LoadPosts() {
@@ -70,7 +67,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: postCollection.frame.width, height: 200)
+        return CGSize(width: postCollection.frame.width, height: 400)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -92,28 +89,3 @@ extension HomeViewController: UICollectionViewDataSource {
     
     
 }
-
-
-
-
-//private func tempButton() {
-//
-//    reloadButton.setTitle("reload", for: .normal)
-//    reloadButton.translatesAutoresizingMaskIntoConstraints = false
-//    reloadButton.setTitleColor(.red, for: .normal)
-//    reloadButton.layer.borderWidth = 1
-//    reloadButton.layer.borderColor = UIColor.yellow.cgColor
-//    reloadButton.addTarget(self, action: #selector(reloadYay), for: .touchUpInside)
-//    view.addSubview(reloadButton)
-//
-//    NSLayoutConstraint.activate([
-//        reloadButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-//        reloadButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//        reloadButton.heightAnchor.constraint(equalToConstant: 50),
-//        reloadButton.widthAnchor.constraint(equalToConstant: 200)
-//    ])
-//}
-//
-//@objc func reloadYay() {
-//    postCollection.reloadData()
-//}

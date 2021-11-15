@@ -19,6 +19,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     let score: UITextView = UITextView()
     let by: UITextView = UITextView()
     let favIcon: UIImageView = UIImageView()
+    let richLinkImage: UIImageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,6 +41,9 @@ class HomeCollectionViewCell: UICollectionViewCell {
         
         favIcon.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(favIcon)
+        
+        richLinkImage.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(richLinkImage)
         
         SetUpConstraints()
     }
@@ -65,7 +69,11 @@ class HomeCollectionViewCell: UICollectionViewCell {
         by.text = post.by
         
         getFavIcon(post.url)
-        
+        HomePageInteraction.dog(url: post.url, completion: { image in
+            DispatchQueue.main.async {
+                self.richLinkImage.image = image
+            }
+        })
     }
     
     func SetUpConstraints() {
@@ -93,6 +101,13 @@ class HomeCollectionViewCell: UICollectionViewCell {
             favIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             favIcon.heightAnchor.constraint(equalToConstant: 40),
             favIcon.widthAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        NSLayoutConstraint.activate([
+            richLinkImage.topAnchor.constraint(equalTo: favIcon.bottomAnchor, constant: 10),
+            richLinkImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            richLinkImage.widthAnchor.constraint(equalToConstant: 80),
+            richLinkImage.heightAnchor.constraint(equalToConstant: 80)
         ])
     }
     

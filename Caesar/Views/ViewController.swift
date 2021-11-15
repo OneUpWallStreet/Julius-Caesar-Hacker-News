@@ -4,7 +4,6 @@
 //
 //  Created by Arteezy on 11/13/21.
 //
-
 import UIKit
 
 class ViewController: UITabBarController {
@@ -44,6 +43,5 @@ class ViewController: UITabBarController {
         }
 
     }
-
 }
 
