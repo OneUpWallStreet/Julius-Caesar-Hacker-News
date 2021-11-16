@@ -9,7 +9,7 @@ import Foundation
 
 class HomeModel {
     
-    static let HomePagePostCount: Int = 5
+    static let HomePagePostCount: Int = 10
     
     func GetTopPosts(completion: @escaping (HackerNewsSingleItem) -> Void) {
                 
