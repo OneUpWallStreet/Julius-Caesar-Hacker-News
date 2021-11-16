@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
     var Posts: Array<HackerNewsSingleItem> = []
     
     var postCollection: UICollectionView!
+//    var textlabel2: UITextL
     let postCollectionIdentifier = "postCollectionIdentifier"
     
     override func viewDidLoad() {

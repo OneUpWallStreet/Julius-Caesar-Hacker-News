@@ -27,16 +27,19 @@ class HomeCollectionViewCell: UICollectionViewCell {
         title.translatesAutoresizingMaskIntoConstraints = false
         title.textColor = UIColor.black
         title.isScrollEnabled = false
+        title.isEditable = false
         contentView.addSubview(title)
 
         score.translatesAutoresizingMaskIntoConstraints = false
         score.textColor = UIColor.black
         score.isScrollEnabled = false
+        score.isEditable = false
         contentView.addSubview(score)
         
         by.translatesAutoresizingMaskIntoConstraints = false
         by.isScrollEnabled = false
         by.textColor = UIColor.black
+        by.isEditable = false
         contentView.addSubview(by)
         
         favIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +72,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         by.text = post.by
         
         getFavIcon(post.url)
-        HomePageInteraction.dog(url: post.url, completion: { image in
+        HomePageInteraction.GetWebsitePreviewPhoto(url: post.url, completion: { image in
             DispatchQueue.main.async {
                 self.richLinkImage.image = image
             }
