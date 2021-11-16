@@ -37,6 +37,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         static let distanceVerticalPostCell: CGFloat = 10
         static let distanceVerticalNegativePostCell: CGFloat = 9
         static let distanceLeadingAndTrailingAnchorPostCell: CGFloat = 3
+        static let distanceLeadningForTitleAndBy: CGFloat = -1
     }
     
     override init(frame: CGRect){
@@ -57,6 +58,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         title.textColor = UIColor.black
         title.isScrollEnabled = false
         title.isEditable = false
+//        title.backgroundColor = .red
         title.font = .systemFont(ofSize: 15, weight: .bold)
         contentView.addSubview(title)
         
@@ -87,6 +89,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         url.translatesAutoresizingMaskIntoConstraints = false
         url.textColor = UIColor.black
         url.isEditable = false
+//        url.backgroundColor = .brown
         url.isScrollEnabled = false
         contentView.addSubview(url)
         
@@ -95,6 +98,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(divider)
         
         favIcon.translatesAutoresizingMaskIntoConstraints = false
+//        favIcon.backgroundColor = .cyan
         contentView.addSubview(favIcon)
         
         richLinkImage.translatesAutoresizingMaskIntoConstraints = false
@@ -130,8 +134,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             favIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PaddingConstants.distanceLeadingAndTrailingAnchorPostCell),
-            favIcon.heightAnchor.constraint(equalToConstant: 20),
-            favIcon.widthAnchor.constraint(equalToConstant: 20)
+            favIcon.heightAnchor.constraint(equalToConstant: 15),
+            favIcon.widthAnchor.constraint(equalToConstant: 15)
         ])
         
         NSLayoutConstraint.activate([
@@ -147,19 +151,17 @@ class HomeCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: favIcon.bottomAnchor, constant: PaddingConstants.distanceVerticalPostCell),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: PaddingConstants.distanceLeadingAndTrailingAnchorPostCell),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: PaddingConstants.distanceLeadningForTitleAndBy),
             title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -PaddingConstants.distanceLeadingAndTrailingAnchorPostCell)
         ])
         
         NSLayoutConstraint.activate([
             by.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalNegativePostCell),
-//            by.topAnchor.constraint(equalTo: title.bottomAnchor, constant: PaddingConstants.distanceVerticalNegativePostCell),
-            by.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PaddingConstants.distanceLeadingAndTrailingAnchorPostCell),
+            by.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PaddingConstants.distanceLeadningForTitleAndBy),
             by.heightAnchor.constraint(equalToConstant: 25)
         ])
         
         NSLayoutConstraint.activate([
-//            descendantsImage.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell),
             descendantsImage.centerYAnchor.constraint(equalTo: by.centerYAnchor),
             descendantsImage.leadingAnchor.constraint(equalTo: score.trailingAnchor, constant: 5),
             descendantsImage.heightAnchor.constraint(equalToConstant: 10),
@@ -168,7 +170,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-//            scoreImage.topAnchor.constraint(equalTo: title.bottomAnchor,constant: -PaddingConstants.distanceVerticalNegativePostCell),
             scoreImage.leadingAnchor.constraint(equalTo: by.trailingAnchor,constant: 5),
             scoreImage.heightAnchor.constraint(equalToConstant: 10),
             scoreImage.widthAnchor.constraint(equalToConstant: 10),

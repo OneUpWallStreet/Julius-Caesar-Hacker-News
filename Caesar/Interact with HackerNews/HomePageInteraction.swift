@@ -8,9 +8,7 @@
 import Foundation
 import LinkPresentation
 
-
 class HomePageInteraction {
-    
     
     static func ReturnPlaceholderPhoto() -> UIImage{
         let placeholderImage: UIImage = UIImage(named: "placeholder")!
@@ -93,6 +91,7 @@ class HomePageInteraction {
                 let decoder = JSONDecoder()
                 if let decodedResponse = try? decoder.decode(HackerNewsSingleItem.self, from: data){
                     DispatchQueue.main.async {
+                        print("Response: \(decodedResponse) ")
                         completion(decodedResponse)
                     }
                 }
