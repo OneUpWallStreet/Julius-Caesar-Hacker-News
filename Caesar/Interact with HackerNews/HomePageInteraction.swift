@@ -8,33 +8,6 @@
 import Foundation
 import LinkPresentation
 
-//
-//let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-//
-//let url = URL(string: "https://stackoverflow.com/q/61286308/2101447")!
-//
-//LPMetadataProvider().startFetchingMetadata(for: url) { (linkMetadata, error) in
-//    guard let linkMetadata = linkMetadata, let imageProvider = linkMetadata.iconProvider else { return }
-//
-//    print(linkMetadata.title ?? "Untitled")
-//
-//    imageProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-//        guard error == nil else {
-//            // handle error
-//            return
-//        }
-//
-//        if let image = image as? UIImage {
-//            // do something with image
-//            DispatchQueue.main.async {
-//                imageView.image = image
-//            }
-//        } else {
-//            print("no image available")
-//        }
-//    }
-//}
-
 
 class HomePageInteraction {
     
@@ -52,10 +25,6 @@ class HomePageInteraction {
             provider.startFetchingMetadata(for: url) { meta, error in
     //          Something went wrong while fetching the image
                 if error != nil {
-                    print("\n")
-                    print("TRASH TRASH TRASH 1")
-                    print("\n")
-                    
 //                  Returning default placeholder image
                     let placeholderImage: UIImage = ReturnPlaceholderPhoto()
                     completion(placeholderImage)
@@ -63,10 +32,6 @@ class HomePageInteraction {
                 }
                 
                 guard let imageProvider = meta?.imageProvider else {
-                    print("\n")
-                    print("TRASH TRASH TRASH 4")
-                    print("\n")
-                    
                     let placeholderImage: UIImage = ReturnPlaceholderPhoto()
                     completion(placeholderImage)
                     return
@@ -75,9 +40,6 @@ class HomePageInteraction {
                 
                 imageProvider.loadObject(ofClass: UIImage.self) { (image,error) in
                     if error != nil {
-                        print("\n")
-                        print("TRASH TRASH TRASH 2")
-                        print("\n")
 //                      Returning default placeholder image
                         let placeholderImage: UIImage = ReturnPlaceholderPhoto()
                         completion(placeholderImage)
@@ -89,9 +51,6 @@ class HomePageInteraction {
                         return
                     }
                     else{
-                        print("\n")
-                        print("TRASH TRASH TRASH 3")
-                        print("\n")
 //                      Returning default placeholder image
                         let placeholderImage: UIImage = ReturnPlaceholderPhoto()
                         completion(placeholderImage)

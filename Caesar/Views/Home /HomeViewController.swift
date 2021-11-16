@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
         let cellPadding: CGFloat = 10
         let sectionPadding: CGFloat = 5
         let layout = UICollectionViewFlowLayout()
-        
+                
         layout.minimumLineSpacing = cellPadding
         layout.minimumInteritemSpacing = sectionPadding
         layout.scrollDirection = .vertical
@@ -68,7 +68,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: postCollection.frame.width, height: 400)
+        return CGSize(width: postCollection.frame.width, height: 110)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -84,7 +84,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = postCollection.dequeueReusableCell(withReuseIdentifier: postCollectionIdentifier, for: indexPath) as! HomeCollectionViewCell
         let post = Posts[indexPath.item]
-        cell.ConfigurePost(post)
+        cell.configureSinglePost(post)
         return cell
     }
     

@@ -13,34 +13,86 @@ extension Int {
     }
 }
 
+
 class HomeCollectionViewCell: UICollectionViewCell {
     
-    let title: UITextView = UITextView()
     let score: UITextView = UITextView()
+    let scoreImage: UIImageView = UIImageView()
+    
+    let descendants: UITextView = UITextView()
+    let descendantsImage: UIImageView = UIImageView()
+    
     let by: UITextView = UITextView()
+    let id: UITextView = UITextView()
+    let time: UITextView = UITextView()
+    let title: UITextView = UITextView()
+    let url: UITextView = UITextView()
+    let type: UITextView = UITextView()
     let favIcon: UIImageView = UIImageView()
     let richLinkImage: UIImageView = UIImageView()
+    let divider: UIView = UIView()
     
-    override init(frame: CGRect) {
+    
+    struct PaddingConstants {
+        static let distanceVerticalPostCell: CGFloat = 10
+        static let distanceVerticalNegativePostCell: CGFloat = 9
+        static let distanceLeadingAndTrailingAnchorPostCell: CGFloat = 3
+    }
+    
+    override init(frame: CGRect){
         super.init(frame: frame)
+        
+        descendants.translatesAutoresizingMaskIntoConstraints = false
+        descendants.textColor = UIColor.black
+        descendants.isScrollEnabled = false
+        descendants.isEditable = false
+        descendants.font = .systemFont(ofSize: 10, weight: .thin)
+        contentView.addSubview(descendants)
+        
+        descendantsImage.translatesAutoresizingMaskIntoConstraints = false
+        descendantsImage.image = UIImage(systemName: "bubble.right")
+        contentView.addSubview(descendantsImage)
         
         title.translatesAutoresizingMaskIntoConstraints = false
         title.textColor = UIColor.black
         title.isScrollEnabled = false
         title.isEditable = false
+        title.font = .systemFont(ofSize: 15, weight: .bold)
         contentView.addSubview(title)
-
+        
         score.translatesAutoresizingMaskIntoConstraints = false
         score.textColor = UIColor.black
         score.isScrollEnabled = false
         score.isEditable = false
+        score.font = .systemFont(ofSize: 10, weight: .thin)
         contentView.addSubview(score)
         
+        scoreImage.translatesAutoresizingMaskIntoConstraints = false
+        scoreImage.image = UIImage(systemName: "hand.thumbsup")
+        contentView.addSubview(scoreImage)
+        
         by.translatesAutoresizingMaskIntoConstraints = false
-        by.isScrollEnabled = false
         by.textColor = UIColor.black
+        by.isScrollEnabled = false
         by.isEditable = false
+        by.font = .systemFont(ofSize: 10, weight: .semibold)
         contentView.addSubview(by)
+        
+        type.translatesAutoresizingMaskIntoConstraints = false
+        type.textColor = UIColor.black
+        type.isEditable = false
+        type.isScrollEnabled = false
+        contentView.addSubview(type)
+        
+        url.translatesAutoresizingMaskIntoConstraints = false
+        url.textColor = UIColor.black
+        url.isEditable = false
+        url.isScrollEnabled = false
+        contentView.addSubview(url)
+        
+        divider.backgroundColor = .gray
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(divider)
         
         favIcon.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(favIcon)
@@ -48,7 +100,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
         richLinkImage.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(richLinkImage)
         
-        SetUpConstraints()
+        setUpPostConstraints()
+        
     }
     
     func getFavIcon(_ websiteDomain: String) {
@@ -58,64 +111,197 @@ class HomeCollectionViewCell: UICollectionViewCell {
             favIcon.image = UIImage(data: data)
         }
         else {
-            print("In else hello")
             let url = URL(string: GeneralURLs.fallbackFaviconURL)
             let fallbackData = try? Data(contentsOf: url!)
             favIcon.image = UIImage(data: fallbackData!)
         }
     }
     
-    func ConfigurePost(_ post: HackerNewsSingleItem) {
-        
-        title.text = post.title
-        score.text = 0.convertToString(post.score)
-        by.text = post.by
-        
+    func configureSinglePost(_ post: HackerNewsSingleItem) {
+        url.text = post.url.StripURLMakeAttractive(post.url)
         getFavIcon(post.url)
-        HomePageInteraction.GetWebsitePreviewPhoto(url: post.url, completion: { image in
-            DispatchQueue.main.async {
-                self.richLinkImage.image = image
-            }
-        })
+        title.text = post.title
+        descendants.text = post.descendants.convertToString(post.descendants)
+        by.text = post.by
+        score.text = post.score.convertToString(post.score)
     }
     
-    func SetUpConstraints() {
+    func setUpPostConstraints() {
         
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            favIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PaddingConstants.distanceLeadingAndTrailingAnchorPostCell),
+            favIcon.heightAnchor.constraint(equalToConstant: 20),
+            favIcon.widthAnchor.constraint(equalToConstant: 20)
         ])
         
         NSLayoutConstraint.activate([
-            score.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20),
-            score.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            score.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            url.leadingAnchor.constraint(equalTo: favIcon.trailingAnchor, constant: 5),
+            url.centerYAnchor.constraint(equalTo: favIcon.centerYAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            by.topAnchor.constraint(equalTo: score.bottomAnchor, constant: 20),
-            by.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            by.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            divider.topAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
+            divider.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            divider.heightAnchor.constraint(equalToConstant: 1)
         ])
         
         NSLayoutConstraint.activate([
-            favIcon.topAnchor.constraint(equalTo: by.bottomAnchor, constant: 10),
-            favIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            favIcon.heightAnchor.constraint(equalToConstant: 40),
-            favIcon.widthAnchor.constraint(equalToConstant: 40)
+            title.topAnchor.constraint(equalTo: favIcon.bottomAnchor, constant: PaddingConstants.distanceVerticalPostCell),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: PaddingConstants.distanceLeadingAndTrailingAnchorPostCell),
+            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -PaddingConstants.distanceLeadingAndTrailingAnchorPostCell)
         ])
         
         NSLayoutConstraint.activate([
-            richLinkImage.topAnchor.constraint(equalTo: favIcon.bottomAnchor, constant: 10),
-            richLinkImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            richLinkImage.widthAnchor.constraint(equalToConstant: 80),
-            richLinkImage.heightAnchor.constraint(equalToConstant: 80)
+            by.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalNegativePostCell),
+//            by.topAnchor.constraint(equalTo: title.bottomAnchor, constant: PaddingConstants.distanceVerticalNegativePostCell),
+            by.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PaddingConstants.distanceLeadingAndTrailingAnchorPostCell),
+            by.heightAnchor.constraint(equalToConstant: 25)
         ])
+        
+        NSLayoutConstraint.activate([
+//            descendantsImage.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell),
+            descendantsImage.centerYAnchor.constraint(equalTo: by.centerYAnchor),
+            descendantsImage.leadingAnchor.constraint(equalTo: score.trailingAnchor, constant: 5),
+            descendantsImage.heightAnchor.constraint(equalToConstant: 10),
+            descendantsImage.widthAnchor.constraint(equalToConstant: 10)
+
+        ])
+        
+        NSLayoutConstraint.activate([
+//            scoreImage.topAnchor.constraint(equalTo: title.bottomAnchor,constant: -PaddingConstants.distanceVerticalNegativePostCell),
+            scoreImage.leadingAnchor.constraint(equalTo: by.trailingAnchor,constant: 5),
+            scoreImage.heightAnchor.constraint(equalToConstant: 10),
+            scoreImage.widthAnchor.constraint(equalToConstant: 10),
+            scoreImage.centerYAnchor.constraint(equalTo: by.centerYAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            score.leadingAnchor.constraint(equalTo: scoreImage.trailingAnchor,constant: 5),
+            score.heightAnchor.constraint(equalToConstant: 25),
+            score.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell)
+        ])
+
+        NSLayoutConstraint.activate([
+            descendants.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell),
+            descendants.leadingAnchor.constraint(equalTo: descendantsImage.trailingAnchor, constant: 5),
+            descendants.heightAnchor.constraint(equalToConstant: 25)
+        ])
+                
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
 }
+
+//class HomeCollectionViewCell: UICollectionViewCell {
+//
+//    let title: UITextView = UITextView()
+//    let score: UITextView = UITextView()
+//    let by: UITextView = UITextView()
+//    let favIcon: UIImageView = UIImageView()
+//    let richLinkImage: UIImageView = UIImageView()
+//
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//
+//
+//
+//
+//        title.translatesAutoresizingMaskIntoConstraints = false
+//        title.textColor = UIColor.black
+//        title.isScrollEnabled = false
+//        title.isEditable = false
+//        contentView.addSubview(title)
+//
+//        score.translatesAutoresizingMaskIntoConstraints = false
+//        score.textColor = UIColor.black
+//        score.isScrollEnabled = false
+//        score.isEditable = false
+//        contentView.addSubview(score)
+//
+//        by.translatesAutoresizingMaskIntoConstraints = false
+//        by.isScrollEnabled = false
+//        by.textColor = UIColor.black
+//        by.isEditable = false
+//        contentView.addSubview(by)
+//
+//        favIcon.translatesAutoresizingMaskIntoConstraints = false
+//        contentView.addSubview(favIcon)
+//
+//        richLinkImage.translatesAutoresizingMaskIntoConstraints = false
+//        contentView.addSubview(richLinkImage)
+//
+//        SetUpConstraints()
+//    }
+//
+//    func getFavIcon(_ websiteDomain: String) {
+//        let imageURL: String = GeneralURLs.googleFavIconFetcher + "\(websiteDomain)"
+//        let url = URL(string: imageURL)
+//        if let data = try? Data(contentsOf: url!) {
+//            favIcon.image = UIImage(data: data)
+//        }
+//        else {
+//            print("In else hello")
+//            let url = URL(string: GeneralURLs.fallbackFaviconURL)
+//            let fallbackData = try? Data(contentsOf: url!)
+//            favIcon.image = UIImage(data: fallbackData!)
+//        }
+//    }
+//
+//    func ConfigurePost(_ post: HackerNewsSingleItem) {
+//
+//        title.text = post.title
+//        score.text = 0.convertToString(post.score)
+//        by.text = post.by
+//
+//        getFavIcon(post.url)
+//        HomePageInteraction.GetWebsitePreviewPhoto(url: post.url, completion: { image in
+//            DispatchQueue.main.async {
+//                self.richLinkImage.image = image
+//            }
+//        })
+//    }
+//
+//    func SetUpConstraints() {
+//
+//        NSLayoutConstraint.activate([
+//            title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+//            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+//        ])
+//
+//        NSLayoutConstraint.activate([
+//            score.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20),
+//            score.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            score.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+//        ])
+//
+//        NSLayoutConstraint.activate([
+//            by.topAnchor.constraint(equalTo: score.bottomAnchor, constant: 20),
+//            by.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            by.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+//        ])
+//
+//        NSLayoutConstraint.activate([
+//            favIcon.topAnchor.constraint(equalTo: by.bottomAnchor, constant: 10),
+//            favIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            favIcon.heightAnchor.constraint(equalToConstant: 40),
+//            favIcon.widthAnchor.constraint(equalToConstant: 40)
+//        ])
+//
+//        NSLayoutConstraint.activate([
+//            richLinkImage.topAnchor.constraint(equalTo: favIcon.bottomAnchor, constant: 10),
+//            richLinkImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            richLinkImage.widthAnchor.constraint(equalToConstant: 80),
+//            richLinkImage.heightAnchor.constraint(equalToConstant: 80)
+//        ])
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
+//}

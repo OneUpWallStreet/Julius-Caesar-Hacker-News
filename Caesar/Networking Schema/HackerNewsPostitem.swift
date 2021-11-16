@@ -13,6 +13,7 @@ struct HackerNewsSingleItem: Codable {
     let descendants: Int
     let id: Int
     let score: Int
+    let kids: Array<Int>
     let time: Int
     let title: String
     let type: String
