@@ -57,21 +57,26 @@ class HomeCollectionViewCell: UICollectionViewCell {
         title.textColor = UIColor.black
         title.isScrollEnabled = false
         title.isEditable = false
-//        title.backgroundColor = .red
         title.font = .systemFont(ofSize: 15, weight: .bold)
         contentView.addSubview(title)
+        
+//
+//        descendants.backgroundColor = .red
+//        descendantsImage.backgroundColor = .red
+//        score.backgroundColor = .yellow
+//        scoreImage.backgroundColor = .yellow
+
+        
         
         score.translatesAutoresizingMaskIntoConstraints = false
         score.textColor = UIColor.black
         score.isScrollEnabled = false
-//        score.backgroundColor = .red
         score.isEditable = false
         score.font = .systemFont(ofSize: 10, weight: .thin)
         contentView.addSubview(score)
         
         scoreImage.translatesAutoresizingMaskIntoConstraints = false
         scoreImage.image = UIImage(systemName: "hand.thumbsup")
-//        scoreImage.backgroundColor = .cyan
         contentView.addSubview(scoreImage)
         
         by.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +95,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         url.translatesAutoresizingMaskIntoConstraints = false
         url.textColor = UIColor.black
         url.isEditable = false
-//        url.backgroundColor = .brown
         url.isScrollEnabled = false
         contentView.addSubview(url)
         
@@ -99,7 +103,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(divider)
         
         favIcon.translatesAutoresizingMaskIntoConstraints = false
-//        favIcon.backgroundColor = .cyan
         contentView.addSubview(favIcon)
         
         richLinkImage.translatesAutoresizingMaskIntoConstraints = false
@@ -127,6 +130,11 @@ class HomeCollectionViewCell: UICollectionViewCell {
         getFavIcon(post.url)
         title.text = post.title
         descendants.text = post.descendants.convertToString(post.descendants)
+        
+//        let randomNumbers: Array<Int> = [2042,111,23,3]
+//        let randomNumber = randomNumbers.randomElement()
+//        score.text = post.score.convertToString(randomNumber!)
+        
         by.text = post.by
         score.text = post.score.convertToString(post.score)
     }
@@ -162,7 +170,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
             by.heightAnchor.constraint(equalToConstant: 25)
         ])
         
-        
         NSLayoutConstraint.activate([
             scoreImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 7),
             scoreImage.heightAnchor.constraint(equalToConstant: 10),
@@ -173,11 +180,12 @@ class HomeCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             score.leadingAnchor.constraint(equalTo: scoreImage.trailingAnchor, constant: 5),
             score.heightAnchor.constraint(equalToConstant: 25),
+            score.widthAnchor.constraint(equalToConstant: 35),
             score.topAnchor.constraint(equalTo: by.bottomAnchor, constant: -4)
         ])
         
         NSLayoutConstraint.activate([
-            descendantsImage.leadingAnchor.constraint(equalTo: score.trailingAnchor, constant: 10),
+            descendantsImage.leadingAnchor.constraint(equalTo: score.trailingAnchor, constant: 5),
             descendantsImage.topAnchor.constraint(equalTo: by.bottomAnchor, constant: 5),
             descendantsImage.heightAnchor.constraint(equalToConstant: 10),
             descendantsImage.widthAnchor.constraint(equalToConstant: 10)
@@ -186,7 +194,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             descendants.leadingAnchor.constraint(equalTo: descendantsImage.trailingAnchor, constant: 5),
             descendants.heightAnchor.constraint(equalToConstant: 25),
-            descendants.topAnchor.constraint(equalTo: by.bottomAnchor, constant: -4)
+            descendants.topAnchor.constraint(equalTo: by.bottomAnchor, constant: -4),
+            descendants.widthAnchor.constraint(equalToConstant: 35)
         ])
 //        
 //        NSLayoutConstraint.activate([
