@@ -13,7 +13,6 @@ extension Int {
     }
 }
 
-
 class HomeCollectionViewCell: UICollectionViewCell {
     
     let score: UITextView = UITextView()
@@ -37,7 +36,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         static let distanceVerticalPostCell: CGFloat = 10
         static let distanceVerticalNegativePostCell: CGFloat = 9
         static let distanceLeadingAndTrailingAnchorPostCell: CGFloat = 3
-        static let distanceLeadningForTitleAndBy: CGFloat = -1
+        static let distanceLeadningForTitleByScoreDescendants: CGFloat = -1
     }
     
     override init(frame: CGRect){
@@ -151,13 +150,13 @@ class HomeCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: favIcon.bottomAnchor, constant: PaddingConstants.distanceVerticalPostCell),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: PaddingConstants.distanceLeadningForTitleAndBy),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: PaddingConstants.distanceLeadningForTitleByScoreDescendants),
             title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -PaddingConstants.distanceLeadingAndTrailingAnchorPostCell)
         ])
         
         NSLayoutConstraint.activate([
             by.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalNegativePostCell),
-            by.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PaddingConstants.distanceLeadningForTitleAndBy),
+            by.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: PaddingConstants.distanceLeadningForTitleByScoreDescendants),
             by.heightAnchor.constraint(equalToConstant: 25)
         ])
         
@@ -167,6 +166,12 @@ class HomeCollectionViewCell: UICollectionViewCell {
             descendantsImage.heightAnchor.constraint(equalToConstant: 10),
             descendantsImage.widthAnchor.constraint(equalToConstant: 10)
 
+        ])
+        
+        NSLayoutConstraint.activate([
+            descendants.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell),
+            descendants.leadingAnchor.constraint(equalTo: descendantsImage.trailingAnchor, constant: 5),
+            descendants.heightAnchor.constraint(equalToConstant: 25)
         ])
         
         NSLayoutConstraint.activate([
@@ -182,11 +187,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
             score.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell)
         ])
 
-        NSLayoutConstraint.activate([
-            descendants.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell),
-            descendants.leadingAnchor.constraint(equalTo: descendantsImage.trailingAnchor, constant: 5),
-            descendants.heightAnchor.constraint(equalToConstant: 25)
-        ])
+
                 
     }
     
