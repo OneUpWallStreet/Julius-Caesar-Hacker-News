@@ -68,7 +68,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: postCollection.frame.width, height: 130)
+        return CGSize(width: postCollection.frame.width, height: 150)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

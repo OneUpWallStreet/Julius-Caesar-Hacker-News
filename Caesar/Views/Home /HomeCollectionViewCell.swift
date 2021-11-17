@@ -30,7 +30,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     let favIcon: UIImageView = UIImageView()
     let richLinkImage: UIImageView = UIImageView()
     let divider: UIView = UIView()
-    
+    let placeholderImage: UIImageView = UIImageView()
     
     struct PaddingConstants {
         static let distanceVerticalPostCell: CGFloat = 10
@@ -59,14 +59,13 @@ class HomeCollectionViewCell: UICollectionViewCell {
         title.isEditable = false
         title.font = .systemFont(ofSize: 15, weight: .bold)
         contentView.addSubview(title)
-        
-//
-//        descendants.backgroundColor = .red
-//        descendantsImage.backgroundColor = .red
-//        score.backgroundColor = .yellow
-//        scoreImage.backgroundColor = .yellow
 
-        
+        placeholderImage.translatesAutoresizingMaskIntoConstraints = false
+        placeholderImage.image = UIImage(named: "place")
+        placeholderImage.layer.borderWidth = 0.5
+        placeholderImage.layer.borderColor = UIColor.black.cgColor
+        placeholderImage.layer.cornerRadius = 5
+        contentView.addSubview(placeholderImage)
         
         score.translatesAutoresizingMaskIntoConstraints = false
         score.textColor = UIColor.black
@@ -95,6 +94,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         url.translatesAutoresizingMaskIntoConstraints = false
         url.textColor = UIColor.black
         url.isEditable = false
+        url.font = .systemFont(ofSize: 12, weight: .semibold)
         url.isScrollEnabled = false
         contentView.addSubview(url)
         
@@ -130,11 +130,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         getFavIcon(post.url)
         title.text = post.title
         descendants.text = post.descendants.convertToString(post.descendants)
-        
-//        let randomNumbers: Array<Int> = [2042,111,23,3]
-//        let randomNumber = randomNumbers.randomElement()
-//        score.text = post.score.convertToString(randomNumber!)
-        
         by.text = post.by
         score.text = post.score.convertToString(post.score)
     }
@@ -155,13 +150,23 @@ class HomeCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             divider.topAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
             divider.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            divider.heightAnchor.constraint(equalToConstant: 1)
+            divider.heightAnchor.constraint(equalToConstant: 0.5)
         ])
+        
+        NSLayoutConstraint.activate([
+            placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1),
+            placeholderImage.heightAnchor.constraint(equalToConstant: 100),
+            placeholderImage.widthAnchor.constraint(equalToConstant: 100),
+            placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -10)
+        ])
+        
+        
         
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: favIcon.bottomAnchor, constant: PaddingConstants.distanceVerticalPostCell),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: PaddingConstants.distanceLeadningForTitleByScoreDescendants),
-            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -PaddingConstants.distanceLeadingAndTrailingAnchorPostCell)
+//            title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -PaddingConstants.distanceLeadingAndTrailingAnchorPostCell)
+            title.trailingAnchor.constraint(equalTo: placeholderImage.leadingAnchor, constant: -10)
         ])
         
         NSLayoutConstraint.activate([
