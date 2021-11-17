@@ -64,12 +64,14 @@ class HomeCollectionViewCell: UICollectionViewCell {
         score.translatesAutoresizingMaskIntoConstraints = false
         score.textColor = UIColor.black
         score.isScrollEnabled = false
+//        score.backgroundColor = .red
         score.isEditable = false
         score.font = .systemFont(ofSize: 10, weight: .thin)
         contentView.addSubview(score)
         
         scoreImage.translatesAutoresizingMaskIntoConstraints = false
         scoreImage.image = UIImage(systemName: "hand.thumbsup")
+//        scoreImage.backgroundColor = .cyan
         contentView.addSubview(scoreImage)
         
         by.translatesAutoresizingMaskIntoConstraints = false
@@ -160,32 +162,59 @@ class HomeCollectionViewCell: UICollectionViewCell {
             by.heightAnchor.constraint(equalToConstant: 25)
         ])
         
-        NSLayoutConstraint.activate([
-            descendantsImage.centerYAnchor.constraint(equalTo: by.centerYAnchor),
-            descendantsImage.leadingAnchor.constraint(equalTo: score.trailingAnchor, constant: 5),
-            descendantsImage.heightAnchor.constraint(equalToConstant: 10),
-            descendantsImage.widthAnchor.constraint(equalToConstant: 10)
-
-        ])
         
         NSLayoutConstraint.activate([
-            descendants.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell),
-            descendants.leadingAnchor.constraint(equalTo: descendantsImage.trailingAnchor, constant: 5),
-            descendants.heightAnchor.constraint(equalToConstant: 25)
-        ])
-        
-        NSLayoutConstraint.activate([
-            scoreImage.leadingAnchor.constraint(equalTo: by.trailingAnchor,constant: 5),
+            scoreImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 7),
             scoreImage.heightAnchor.constraint(equalToConstant: 10),
             scoreImage.widthAnchor.constraint(equalToConstant: 10),
-            scoreImage.centerYAnchor.constraint(equalTo: by.centerYAnchor)
+            scoreImage.topAnchor.constraint(equalTo: by.bottomAnchor, constant: 5)
         ])
-
+        
         NSLayoutConstraint.activate([
-            score.leadingAnchor.constraint(equalTo: scoreImage.trailingAnchor,constant: 5),
+            score.leadingAnchor.constraint(equalTo: scoreImage.trailingAnchor, constant: 5),
             score.heightAnchor.constraint(equalToConstant: 25),
-            score.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell)
+            score.topAnchor.constraint(equalTo: by.bottomAnchor, constant: -4)
         ])
+        
+        NSLayoutConstraint.activate([
+            descendantsImage.leadingAnchor.constraint(equalTo: score.trailingAnchor, constant: 10),
+            descendantsImage.topAnchor.constraint(equalTo: by.bottomAnchor, constant: 5),
+            descendantsImage.heightAnchor.constraint(equalToConstant: 10),
+            descendantsImage.widthAnchor.constraint(equalToConstant: 10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            descendants.leadingAnchor.constraint(equalTo: descendantsImage.trailingAnchor, constant: 5),
+            descendants.heightAnchor.constraint(equalToConstant: 25),
+            descendants.topAnchor.constraint(equalTo: by.bottomAnchor, constant: -4)
+        ])
+//        
+//        NSLayoutConstraint.activate([
+//            descendantsImage.centerYAnchor.constraint(equalTo: by.centerYAnchor),
+//            descendantsImage.leadingAnchor.constraint(equalTo: score.trailingAnchor, constant: 5),
+//            descendantsImage.heightAnchor.constraint(equalToConstant: 10),
+//            descendantsImage.widthAnchor.constraint(equalToConstant: 10)
+//
+//        ])
+//        
+//        NSLayoutConstraint.activate([
+//            descendants.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell),
+//            descendants.leadingAnchor.constraint(equalTo: descendantsImage.trailingAnchor, constant: 5),
+//            descendants.heightAnchor.constraint(equalToConstant: 25)
+//        ])
+//        
+//        NSLayoutConstraint.activate([
+//            scoreImage.leadingAnchor.constraint(equalTo: by.trailingAnchor,constant: 5),
+//            scoreImage.heightAnchor.constraint(equalToConstant: 10),
+//            scoreImage.widthAnchor.constraint(equalToConstant: 10),
+//            scoreImage.centerYAnchor.constraint(equalTo: by.centerYAnchor)
+//        ])
+//
+//        NSLayoutConstraint.activate([
+//            score.leadingAnchor.constraint(equalTo: scoreImage.trailingAnchor,constant: 5),
+//            score.heightAnchor.constraint(equalToConstant: 25),
+//            score.topAnchor.constraint(equalTo: title.bottomAnchor, constant: -PaddingConstants.distanceVerticalPostCell)
+//        ])
 
 
                 
