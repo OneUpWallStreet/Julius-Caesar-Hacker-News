@@ -13,7 +13,11 @@ extension Int {
     }
 }
 
+
+
 class HomeCollectionViewCell: UICollectionViewCell {
+    
+    
     
     let score: UITextView = UITextView()
     let scoreImage: UIImageView = UIImageView()
@@ -34,9 +38,12 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     struct PaddingConstants {
         static let distanceVerticalPostCell: CGFloat = 10
+        static let distanceVerticalTitle: CGFloat = 5
+        
         static let distanceVerticalNegativePostCell: CGFloat = 9
         static let distanceLeadingAndTrailingAnchorPostCell: CGFloat = 3
         static let distanceLeadningForTitleByScoreDescendants: CGFloat = -1
+        
     }
     
     override init(frame: CGRect){
@@ -57,6 +64,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         title.textColor = UIColor.black
         title.isScrollEnabled = false
         title.isEditable = false
+        title.backgroundColor = .red
         title.font = .systemFont(ofSize: 15, weight: .bold)
         contentView.addSubview(title)
 
@@ -96,6 +104,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         url.isEditable = false
         url.font = .systemFont(ofSize: 12, weight: .semibold)
         url.isScrollEnabled = false
+        url.backgroundColor = .yellow
         contentView.addSubview(url)
         
         divider.backgroundColor = .gray
@@ -103,6 +112,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(divider)
         
         favIcon.translatesAutoresizingMaskIntoConstraints = false
+        favIcon.backgroundColor = .cyan
         contentView.addSubview(favIcon)
         
         richLinkImage.translatesAutoresizingMaskIntoConstraints = false
@@ -126,12 +136,23 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     func configureSinglePost(_ post: HackerNewsSingleItem) {
+        
+
+        
         url.text = post.url.StripURLMakeAttractive(post.url)
         getFavIcon(post.url)
+//        var name: String = ""
+//        for x in 0..<post.title.count{
+//            name.append("a")
+//        }
+//        title.text = name
+        
+//        title.text = "a" * post.title.count
         title.text = post.title
         descendants.text = post.descendants.convertToString(post.descendants)
         by.text = post.by
         score.text = post.score.convertToString(post.score)
+        
     }
     
     func setUpPostConstraints() {
