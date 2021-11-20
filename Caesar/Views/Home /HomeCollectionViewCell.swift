@@ -38,7 +38,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     struct PaddingConstants {
         static let distanceVerticalPostCell: CGFloat = 10
-        static let distanceVerticalTitle: CGFloat = 5
+        static let distanceVerticalTitle: CGFloat = 3
         
         static let distanceVerticalNegativePostCell: CGFloat = 9
         static let distanceLeadingAndTrailingAnchorPostCell: CGFloat = 3
@@ -64,7 +64,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         title.textColor = UIColor.black
         title.isScrollEnabled = false
         title.isEditable = false
-        title.backgroundColor = .red
         title.font = .systemFont(ofSize: 15, weight: .bold)
         contentView.addSubview(title)
 
@@ -104,19 +103,25 @@ class HomeCollectionViewCell: UICollectionViewCell {
         url.isEditable = false
         url.font = .systemFont(ofSize: 12, weight: .semibold)
         url.isScrollEnabled = false
-        url.backgroundColor = .yellow
         contentView.addSubview(url)
         
-        divider.backgroundColor = .gray
-        divider.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(divider)
+//        divider.backgroundColor = .gray
+//        divider.translatesAutoresizingMaskIntoConstraints = false
+//        contentView.addSubview(divider)
         
         favIcon.translatesAutoresizingMaskIntoConstraints = false
-        favIcon.backgroundColor = .cyan
         contentView.addSubview(favIcon)
         
         richLinkImage.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(richLinkImage)
+        
+        contentView.backgroundColor = .cyan
+        
+//        contentView.backgroundColor = .gray
+//        contentView.backgroundColor = .cyan
+//        url.backgroundColor = .yellow
+//        favIcon.backgroundColor = .cyan
+//        title.backgroundColor = .red
         
         setUpPostConstraints()
         
@@ -141,16 +146,9 @@ class HomeCollectionViewCell: UICollectionViewCell {
         
         url.text = post.url.StripURLMakeAttractive(post.url)
         getFavIcon(post.url)
-//        var name: String = ""
-//        for x in 0..<post.title.count{
-//            name.append("a")
-//        }
-//        title.text = name
-        
-//        title.text = "a" * post.title.count
         title.text = post.title
         descendants.text = post.descendants.convertToString(post.descendants)
-        by.text = post.by
+        by.text = post.by + " : " + String(post.title.count)
         score.text = post.score.convertToString(post.score)
         
     }
@@ -168,23 +166,22 @@ class HomeCollectionViewCell: UICollectionViewCell {
             url.centerYAnchor.constraint(equalTo: favIcon.centerYAnchor)
         ])
         
-        NSLayoutConstraint.activate([
-            divider.topAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
-            divider.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            divider.heightAnchor.constraint(equalToConstant: 0.5)
-        ])
+//        NSLayoutConstraint.activate([
+//            divider.topAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
+//            divider.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+//            divider.heightAnchor.constraint(equalToConstant: 0.5)
+//        ])
         
         NSLayoutConstraint.activate([
             placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1),
-            placeholderImage.heightAnchor.constraint(equalToConstant: 100),
-            placeholderImage.widthAnchor.constraint(equalToConstant: 100),
-            placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -10)
+            placeholderImage.heightAnchor.constraint(equalToConstant: 80),
+            placeholderImage.widthAnchor.constraint(equalToConstant: 80),
+//            placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -15)
         ])
         
-        
-        
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: favIcon.bottomAnchor, constant: PaddingConstants.distanceVerticalPostCell),
+            title.topAnchor.constraint(equalTo: favIcon.bottomAnchor, constant: PaddingConstants.distanceVerticalTitle),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: PaddingConstants.distanceLeadningForTitleByScoreDescendants),
             title.trailingAnchor.constraint(equalTo: placeholderImage.leadingAnchor, constant: -10)
         ])

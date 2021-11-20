@@ -80,10 +80,10 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: postCollection.frame.width, height: 100)
         }
         else if titleWordSize < 50 {
-            return CGSize(width: postCollection.frame.width, height: 120)
+            return CGSize(width: postCollection.frame.width, height: 115)
         }
         else {
-            return CGSize(width: postCollection.frame.width, height: 140)
+            return CGSize(width: postCollection.frame.width, height: 130)
         }
     }
     
