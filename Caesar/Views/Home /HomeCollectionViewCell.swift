@@ -14,11 +14,8 @@ extension Int {
 }
 
 
-
 class HomeCollectionViewCell: UICollectionViewCell {
-    
-    
-    
+        
     let score: UITextView = UITextView()
     let scoreImage: UIImageView = UIImageView()
     
@@ -115,7 +112,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         richLinkImage.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(richLinkImage)
         
-        contentView.backgroundColor = .cyan
+//        contentView.backgroundColor = .cyan
         
 //        contentView.backgroundColor = .gray
 //        contentView.backgroundColor = .cyan
@@ -141,9 +138,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     func configureSinglePost(_ post: HackerNewsSingleItem) {
-        
-
-        
+                
         url.text = post.url.StripURLMakeAttractive(post.url)
         getFavIcon(post.url)
         title.text = post.title
@@ -165,12 +160,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
             url.leadingAnchor.constraint(equalTo: favIcon.trailingAnchor, constant: 5),
             url.centerYAnchor.constraint(equalTo: favIcon.centerYAnchor)
         ])
-        
-//        NSLayoutConstraint.activate([
-//            divider.topAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
-//            divider.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-//            divider.heightAnchor.constraint(equalToConstant: 0.5)
-//        ])
         
         NSLayoutConstraint.activate([
             placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1),

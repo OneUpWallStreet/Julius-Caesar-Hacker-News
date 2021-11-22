@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 class HomeViewController: UIViewController {
     
     var homeModel: HomeModel = HomeModel()
@@ -18,7 +16,6 @@ class HomeViewController: UIViewController {
     
     var postCollection: UICollectionView!
     let postCollectionIdentifier = "postCollectionIdentifier"
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +36,18 @@ class HomeViewController: UIViewController {
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: sectionPadding, left: 0, bottom: sectionPadding, right: 0)
         
+//        self.verticalLayoutConstraint.constant = self.collectionView.contentSize.height;
+        
         postCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         postCollection.translatesAutoresizingMaskIntoConstraints = false
         postCollection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: postCollectionIdentifier)
         postCollection.delegate = self
         postCollection.dataSource = self
         view.addSubview(postCollection)
-
+        
+//        postCollection.vertical
+        
+        
         NSLayoutConstraint.activate([
             postCollection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             postCollection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -62,7 +64,7 @@ class HomeViewController: UIViewController {
             self.Posts.append(post)
 //          I want to reload the page when 5:(arbitary/temp-number) posts are fetched from the server
             print("\n \n \n Posts.count: \(self.Posts.count) and official value is \(HomeModel.HomePagePostCount)")
-            if self.Posts.count == HomeModel.HomePagePostCount || self.Posts.count == HomeModel.HomePagePostCount-2 {
+            if self.Posts.count == HomeModel.HomePagePostCount || self.Posts.count == HomeModel.HomePagePostCount-2 || self.Posts.count > HomeModel.HomePagePostCount - 30 {
                 print("\n \n \n \n Should reload Data \n ")
                 self.postCollection.reloadData()
             }
@@ -70,17 +72,16 @@ class HomeViewController: UIViewController {
     }
 }
 
-
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let post = Posts[indexPath.item]
         let titleWordSize = post.title.count
         
-        if titleWordSize < 25 {
-            return CGSize(width: postCollection.frame.width, height: 100)
+        if titleWordSize <= 35 {
+            return CGSize(width: postCollection.frame.width, height: 130)
         }
-        else if titleWordSize < 50 {
-            return CGSize(width: postCollection.frame.width, height: 115)
+        else if titleWordSize <= 65 {
+            return CGSize(width: postCollection.frame.width, height: 130)
         }
         else {
             return CGSize(width: postCollection.frame.width, height: 130)

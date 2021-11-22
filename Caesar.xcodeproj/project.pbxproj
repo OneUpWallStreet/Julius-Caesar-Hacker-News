@@ -22,6 +22,7 @@
 		18E19499273FE0AE0092D4DE /* HackerNewsAPIsURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19498273FE0AE0092D4DE /* HackerNewsAPIsURLs.swift */; };
 		18E1949C273FE16C0092D4DE /* HomePageInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1949B273FE16C0092D4DE /* HomePageInteraction.swift */; };
 		18E1949F274008150092D4DE /* HackerNewsPostitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1949E274008150092D4DE /* HackerNewsPostitem.swift */; };
+		18E907C5274BE23C0023F4A5 /* HomeSecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E907C4274BE23C0023F4A5 /* HomeSecondCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		18E19498273FE0AE0092D4DE /* HackerNewsAPIsURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsAPIsURLs.swift; sourceTree = "<group>"; };
 		18E1949B273FE16C0092D4DE /* HomePageInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageInteraction.swift; sourceTree = "<group>"; };
 		18E1949E274008150092D4DE /* HackerNewsPostitem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HackerNewsPostitem.swift; sourceTree = "<group>"; };
+		18E907C4274BE23C0023F4A5 /* HomeSecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSecondCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			children = (
 				18E19492273FC4A60092D4DE /* HomeViewController.swift */,
 				18BFDCE92741353100ADAFC1 /* HomeCollectionViewCell.swift */,
+				18E907C4274BE23C0023F4A5 /* HomeSecondCollectionViewCell.swift */,
 			);
 			path = "Home ";
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				18BFDCE42740F39D00ADAFC1 /* JobsViewController.swift in Sources */,
 				18E19493273FC4A60092D4DE /* HomeViewController.swift in Sources */,
 				18BFDCEA2741353100ADAFC1 /* HomeCollectionViewCell.swift in Sources */,
+				18E907C5274BE23C0023F4A5 /* HomeSecondCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
