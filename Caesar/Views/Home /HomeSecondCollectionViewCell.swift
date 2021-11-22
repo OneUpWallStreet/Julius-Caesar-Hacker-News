@@ -24,7 +24,6 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        
         configureStackView()
         
     }
@@ -59,13 +58,7 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         title.isEditable = false
         contentView.addSubview(title)
         
-        placeholderImage.translatesAutoresizingMaskIntoConstraints = false
-        placeholderImage.image = UIImage(named: "place")
-        placeholderImage.layer.borderWidth = 0.5
-        placeholderImage.layer.borderColor = UIColor.black.cgColor
-        placeholderImage.layer.cornerRadius = 5
-        contentView.addSubview(placeholderImage)
-        
+
         by.translatesAutoresizingMaskIntoConstraints = false
         by.textColor = UIColor.black
         by.isScrollEnabled = false
@@ -83,35 +76,70 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         favIcon.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(favIcon)
         
-        
         NSLayoutConstraint.activate([
-            placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            placeholderImage.heightAnchor.constraint(equalToConstant: 50),
-            placeholderImage.widthAnchor.constraint(equalToConstant: 50)
+            favIcon.widthAnchor.constraint(equalToConstant: 15),
+            favIcon.heightAnchor.constraint(equalToConstant: 15)
         ])
         
-        
+        NSLayoutConstraint.activate([
+//            placeholderImage.
+        ])
         
     }
     
     func configureStackView() {
         
-        let mainStack: UIStackView = UIStackView(arrangedSubviews: [title,placeholderImage,url,favIcon,by])
+        configurePostDetails()
+
+        let headerStack: UIStackView = UIStackView(arrangedSubviews: [favIcon,url])
+        
+        headerStack.axis = .horizontal
+        headerStack.distribution = .fillProportionally
+        headerStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        title.backgroundColor = .red
+        
+        let mainStack: UIStackView = UIStackView(arrangedSubviews: [headerStack,title,by])
         
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         mainStack.axis = .vertical
         mainStack.distribution = .equalSpacing
-        mainStack.spacing = 10
+        contentView.addSubview(mainStack)
+
+        placeholderImage.translatesAutoresizingMaskIntoConstraints = false
+        placeholderImage.image = UIImage(named: "place")
+        placeholderImage.layer.borderWidth = 0.5
+        placeholderImage.layer.borderColor = UIColor.black.cgColor
+        placeholderImage.layer.cornerRadius = 5
+        contentView.addSubview(placeholderImage)
+        
+        
+//        NSLayoutConstraint.activate([
+//            headerStack.heightAnchor.constraint(equalToConstant: 15)
+//        ])
+
+        url.backgroundColor = .cyan
+        
+        NSLayoutConstraint.activate([
+            placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            placeholderImage.heightAnchor.constraint(equalToConstant: 80),
+            placeholderImage.widthAnchor.constraint(equalToConstant: 80)
+        ])
+        
+//        NSLayoutConstraint.activate([
+//            title.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 65)
+//        ])
         
         NSLayoutConstraint.activate([
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainStack.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            mainStack.trailingAnchor.constraint(equalTo: placeholderImage.leadingAnchor)
         ])
         
-        contentView.addSubview(mainStack)
+//        mainStack.backgroundColor = .yellow
+        
+        
     
     }
     

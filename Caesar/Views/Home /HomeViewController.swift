@@ -40,7 +40,8 @@ class HomeViewController: UIViewController {
         
         postCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         postCollection.translatesAutoresizingMaskIntoConstraints = false
-        postCollection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: postCollectionIdentifier)
+        postCollection.register(HomeSecondCollectionViewCell.self, forCellWithReuseIdentifier: postCollectionIdentifier)
+//        postCollection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: postCollectionIdentifier)
         postCollection.delegate = self
         postCollection.dataSource = self
         view.addSubview(postCollection)
@@ -99,7 +100,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = postCollection.dequeueReusableCell(withReuseIdentifier: postCollectionIdentifier, for: indexPath) as! HomeCollectionViewCell
+        let cell = postCollection.dequeueReusableCell(withReuseIdentifier: postCollectionIdentifier, for: indexPath) as! HomeSecondCollectionViewCell
         let post = Posts[indexPath.item]
         cell.configureSinglePost(post)
         return cell
