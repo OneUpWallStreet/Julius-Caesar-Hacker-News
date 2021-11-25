@@ -9,13 +9,18 @@ import UIKit
 
 class HomeSecondCollectionViewCell: UICollectionViewCell {
     
-    
     let by: UITextView = UITextView()
     let title: UITextView = UITextView()
     let url: UITextView = UITextView()
     let favIcon: UIImageView = UIImageView()
     let divider: UIView = UIView()
     let placeholderImage: UIImageView = UIImageView()
+    
+    let score: UITextView = UITextView()
+    let scoreImage: UIImageView = UIImageView()
+    
+    let descendants: UITextView = UITextView()
+    let descendantsImage: UIImageView = UIImageView()
 
 //    let mainStack: UIStackView = UIStackView(arrangedSubviews: [title,placeholderImage])
     let detailStack: UIStackView = UIStackView()
@@ -24,10 +29,13 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         
         super.init(frame: frame)
+        
+        contentView.backgroundColor = .yellow
+        contentView.layer.borderColor = UIColor.black.cgColor
+        contentView.layer.borderWidth = 2
         configureStackView()
         
     }
-    
     
     func getFavIcon(_ websiteDomain: String) {
         let imageURL: String = GeneralURLs.googleFavIconFetcher + "\(websiteDomain)"
@@ -47,6 +55,8 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         getFavIcon(post.url)
         title.text = post.title
         by.text = post.by
+        score.text = 0.convertToString(post.score)
+        descendants.text = 0.convertToString(post.descendants)
     }
     
     
@@ -58,7 +68,6 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         title.isEditable = false
         contentView.addSubview(title)
         
-
         by.translatesAutoresizingMaskIntoConstraints = false
         by.textColor = UIColor.black
         by.isScrollEnabled = false
@@ -76,14 +85,27 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         favIcon.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(favIcon)
         
-        NSLayoutConstraint.activate([
-            favIcon.widthAnchor.constraint(equalToConstant: 15),
-            favIcon.heightAnchor.constraint(equalToConstant: 15)
-        ])
+        score.translatesAutoresizingMaskIntoConstraints = false
+        score.textColor = UIColor.black
+        score.isScrollEnabled = false
+        score.isEditable = false
+        score.font = .systemFont(ofSize: 10, weight: .thin)
+        contentView.addSubview(score)
         
-        NSLayoutConstraint.activate([
-//            placeholderImage.
-        ])
+        scoreImage.translatesAutoresizingMaskIntoConstraints = false
+        scoreImage.image = UIImage(systemName: "hand.thumbsup")
+        contentView.addSubview(scoreImage)
+
+        descendants.translatesAutoresizingMaskIntoConstraints = false
+        descendants.textColor = UIColor.black
+        descendants.isScrollEnabled = false
+        descendants.isEditable = false
+        descendants.font = .systemFont(ofSize: 10, weight: .thin)
+        contentView.addSubview(descendants)
+        
+        descendantsImage.translatesAutoresizingMaskIntoConstraints = false
+        descendantsImage.image = UIImage(systemName: "bubble.right")
+        contentView.addSubview(descendantsImage)
         
     }
     
@@ -91,20 +113,63 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         
         configurePostDetails()
 
-        let headerStack: UIStackView = UIStackView(arrangedSubviews: [favIcon,url])
+        let headerView: UIStackView = UIStackView(arrangedSubviews: [favIcon,url])
         
-        headerStack.axis = .horizontal
-        headerStack.distribution = .fillProportionally
-        headerStack.translatesAutoresizingMaskIntoConstraints = false
+        headerView.axis = .horizontal
+        headerView.distribution = .equalSpacing
+        headerView.alignment = .center
+
+        NSLayoutConstraint.activate([
+            headerView.heightAnchor.constraint(equalToConstant: 30)
+        ])
         
-        title.backgroundColor = .red
+        NSLayoutConstraint.activate([
+            favIcon.heightAnchor.constraint(equalToConstant: 15),
+            favIcon.widthAnchor.constraint(equalToConstant: 15)
+        ])
         
-        let mainStack: UIStackView = UIStackView(arrangedSubviews: [headerStack,title,by])
+//        headerView.backgroundColor = .cyan
+//        url.backgroundColor = .red
+//        title.backgroundColor = .yellow
+        
+        NSLayoutConstraint.activate([
+            url.leadingAnchor.constraint(equalTo: favIcon.trailingAnchor)
+        ])
+        
+        let footerView: UIStackView = UIStackView(arrangedSubviews: [scoreImage,score,descendantsImage,descendants])
+        
+        footerView.axis = .horizontal
+        footerView.alignment = .center
+        
+        NSLayoutConstraint.activate([
+            scoreImage.heightAnchor.constraint(equalToConstant: 15),
+            scoreImage.widthAnchor.constraint(equalToConstant: 15)
+        ])
+        
+        NSLayoutConstraint.activate([
+            descendantsImage.heightAnchor.constraint(equalToConstant: 15),
+            descendantsImage.widthAnchor.constraint(equalToConstant: 15)
+        ])
+        
+        
+        let mainStack: UIStackView = UIStackView(arrangedSubviews: [headerView,title,by,footerView])
         
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         mainStack.axis = .vertical
         mainStack.distribution = .equalSpacing
+//        mainStack.spacing = -10
+        
+        
+        NSLayoutConstraint.activate([
+//            title.heightAnchor.constraint(equalToConstant: 35)
+        ])
+        title.backgroundColor = .red
+        
+        mainStack.setCustomSpacing(0, after: headerView)
+        mainStack.setCustomSpacing(0, after: title)
+        mainStack.setCustomSpacing(0, after: by)
         contentView.addSubview(mainStack)
+        
 
         placeholderImage.translatesAutoresizingMaskIntoConstraints = false
         placeholderImage.image = UIImage(named: "place")
@@ -113,13 +178,6 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         placeholderImage.layer.cornerRadius = 5
         contentView.addSubview(placeholderImage)
         
-        
-//        NSLayoutConstraint.activate([
-//            headerStack.heightAnchor.constraint(equalToConstant: 15)
-//        ])
-
-        url.backgroundColor = .cyan
-        
         NSLayoutConstraint.activate([
             placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -127,20 +185,20 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
             placeholderImage.widthAnchor.constraint(equalToConstant: 80)
         ])
         
-//        NSLayoutConstraint.activate([
-//            title.topAnchor.constraint(equalTo: headerStack.bottomAnchor, constant: 65)
-//        ])
-        
         NSLayoutConstraint.activate([
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainStack.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainStack.trailingAnchor.constraint(equalTo: placeholderImage.leadingAnchor)
         ])
         
-//        mainStack.backgroundColor = .yellow
+        mainStack.layoutIfNeeded()
         
+        let size: CGRect = mainStack.frame
+        print("size and i like goldman sachs: \(size)")
+//        print("Height anchor -> \(mainStack.) ")
+//        NSLog(@"My view's frame is: %@", NSStringFromCGRect(mainStack.frame));
+//        print("Height Anchor for mainstack with title is \(size)")
         
-    
     }
     
     required init?(coder: NSCoder) {

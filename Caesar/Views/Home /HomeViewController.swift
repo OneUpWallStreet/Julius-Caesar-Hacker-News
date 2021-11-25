@@ -79,14 +79,15 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let titleWordSize = post.title.count
         
         if titleWordSize <= 35 {
-            return CGSize(width: postCollection.frame.width, height: 130)
+            return CGSize(width: postCollection.frame.width, height: 140)
         }
         else if titleWordSize <= 65 {
-            return CGSize(width: postCollection.frame.width, height: 130)
+            return CGSize(width: postCollection.frame.width, height: 140)
         }
         else {
-            return CGSize(width: postCollection.frame.width, height: 130)
+            return CGSize(width: postCollection.frame.width, height: 140)
         }
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
