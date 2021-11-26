@@ -64,9 +64,9 @@ class HomeViewController: UIViewController {
             
             self.Posts.append(post)
 //          I want to reload the page when 5:(arbitary/temp-number) posts are fetched from the server
-            print("\n \n \n Posts.count: \(self.Posts.count) and official value is \(HomeModel.HomePagePostCount)")
+//            print("\n \n \n Posts.count: \(self.Posts.count) and official value is \(HomeModel.HomePagePostCount)")
             if self.Posts.count == HomeModel.HomePagePostCount || self.Posts.count == HomeModel.HomePagePostCount-2 || self.Posts.count > HomeModel.HomePagePostCount - 30 {
-                print("\n \n \n \n Should reload Data \n ")
+//                print("\n \n \n \n Should reload Data \n ")
                 self.postCollection.reloadData()
             }
         }

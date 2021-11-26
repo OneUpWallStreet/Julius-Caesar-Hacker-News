@@ -91,7 +91,7 @@ class HomePageInteraction {
                 let decoder = JSONDecoder()
                 if let decodedResponse = try? decoder.decode(HackerNewsSingleItem.self, from: data){
                     DispatchQueue.main.async {
-                        print("Response: \(decodedResponse) ")
+//                        print("Response: \(decodedResponse) ")
                         completion(decodedResponse)
                     }
                 }

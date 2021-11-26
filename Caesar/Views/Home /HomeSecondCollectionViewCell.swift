@@ -35,6 +35,9 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderWidth = 2
         configureStackView()
         
+//      Sizes of Title are 34,52,70
+
+        
     }
     
     func getFavIcon(_ websiteDomain: String) {
@@ -57,8 +60,10 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         by.text = post.by
         score.text = 0.convertToString(post.score)
         descendants.text = 0.convertToString(post.descendants)
+        
+        let titleSize: CGSize = title.sizeThatFits(title.bounds.size)
+        print("Title Size:  \(titleSize)")
     }
-    
     
     func configurePostDetails() {
         title.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +113,7 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(descendantsImage)
         
     }
-    
+        
     func configureStackView() {
         
         configurePostDetails()
@@ -127,10 +132,6 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
             favIcon.heightAnchor.constraint(equalToConstant: 15),
             favIcon.widthAnchor.constraint(equalToConstant: 15)
         ])
-        
-//        headerView.backgroundColor = .cyan
-//        url.backgroundColor = .red
-//        title.backgroundColor = .yellow
         
         NSLayoutConstraint.activate([
             url.leadingAnchor.constraint(equalTo: favIcon.trailingAnchor)
@@ -151,18 +152,12 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
             descendantsImage.widthAnchor.constraint(equalToConstant: 15)
         ])
         
-        
         let mainStack: UIStackView = UIStackView(arrangedSubviews: [headerView,title,by,footerView])
         
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         mainStack.axis = .vertical
         mainStack.distribution = .equalSpacing
-//        mainStack.spacing = -10
         
-        
-        NSLayoutConstraint.activate([
-//            title.heightAnchor.constraint(equalToConstant: 35)
-        ])
         title.backgroundColor = .red
         
         mainStack.setCustomSpacing(0, after: headerView)
@@ -170,7 +165,6 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         mainStack.setCustomSpacing(0, after: by)
         contentView.addSubview(mainStack)
         
-
         placeholderImage.translatesAutoresizingMaskIntoConstraints = false
         placeholderImage.image = UIImage(named: "place")
         placeholderImage.layer.borderWidth = 0.5
@@ -190,14 +184,6 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
             mainStack.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainStack.trailingAnchor.constraint(equalTo: placeholderImage.leadingAnchor)
         ])
-        
-        mainStack.layoutIfNeeded()
-        
-        let size: CGRect = mainStack.frame
-        print("size and i like goldman sachs: \(size)")
-//        print("Height anchor -> \(mainStack.) ")
-//        NSLog(@"My view's frame is: %@", NSStringFromCGRect(mainStack.frame));
-//        print("Height Anchor for mainstack with title is \(size)")
         
     }
     
