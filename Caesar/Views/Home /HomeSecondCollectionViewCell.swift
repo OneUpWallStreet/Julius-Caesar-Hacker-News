@@ -54,7 +54,7 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(placeholderImage)
         
         NSLayoutConstraint.activate([
-            placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -5),
+            placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
             placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             placeholderImage.heightAnchor.constraint(equalToConstant: 80),
             placeholderImage.widthAnchor.constraint(equalToConstant: 80)
@@ -122,6 +122,13 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
     }
     
     func configureSinglePost(_ post: HackerNewsSingleItem) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            HomePageInteraction.GetWebsitePreviewPhoto(url: post.url) { image in
+                self.placeholderImage.image = image
+            }
+        }
+        
         url.text = post.url.StripURLMakeAttractive(post.url)
         getFavIcon(post.url)
         title.text = post.title

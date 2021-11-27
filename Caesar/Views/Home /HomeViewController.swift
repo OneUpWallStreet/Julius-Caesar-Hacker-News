@@ -96,18 +96,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let post = Posts[indexPath.item]
-        
-        if post.title.count < 30 {
-            return CGSize(width: postCollection.frame.width, height: HomeCellSizes.small)
-        }
-        if post.title.count < 55 {
-            return CGSize(width: postCollection.frame.width, height: HomeCellSizes.medium)
-        }
-        else{
-            return CGSize(width: postCollection.frame.width, height: HomeCellSizes.large)
-        }
+  
+        return CGSize(width: postCollection.frame.width, height: HomeCellSizes.large)
 
     }
     
@@ -126,9 +116,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = postCollection.dequeueReusableCell(withReuseIdentifier: postCollectionIdentifier, for: indexPath) as! HomeSecondCollectionViewCell
         let post = Posts[indexPath.item]
-        cell.configureSinglePost(post)
-//        collectionView.collectionViewLayout.invalidateLayout()
-        
+        cell.configureSinglePost(post)        
         
         return cell
         
