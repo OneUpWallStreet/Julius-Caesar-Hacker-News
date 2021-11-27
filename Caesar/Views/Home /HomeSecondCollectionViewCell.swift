@@ -9,6 +9,7 @@ import UIKit
 
 class HomeSecondCollectionViewCell: UICollectionViewCell {
     
+    
     let by: UITextView = UITextView()
     let title: UITextView = UITextView()
     let url: UITextView = UITextView()
@@ -21,8 +22,9 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
     
     let descendants: UITextView = UITextView()
     let descendantsImage: UIImageView = UIImageView()
+    
+    let tempTitle: UITextView = UITextView()
 
-//    let mainStack: UIStackView = UIStackView(arrangedSubviews: [title,placeholderImage])
     let detailStack: UIStackView = UIStackView()
     let imageStack: UIStackView = UIStackView()
     
@@ -30,77 +32,33 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         
         super.init(frame: frame)
         
-        
-        
-        contentView.backgroundColor = .yellow
-        contentView.layer.borderColor = UIColor.black.cgColor
-        contentView.layer.borderWidth = 2
-        configureStackView()
-        
-//      Sizes of Title are 34,52,70
-
-        
-    }
-    
-    func returnTitleSize(_ post: HackerNewsSingleItem) -> CGFloat {
-        title.text = post.title
-        let titleSize: CGFloat = title.sizeThatFits(title.bounds.size).height
-        return titleSize
-    }
-    
-    func getFavIcon(_ websiteDomain: String) {
-        let imageURL: String = GeneralURLs.googleFavIconFetcher + "\(websiteDomain)"
-        let url = URL(string: imageURL)
-        if let data = try? Data(contentsOf: url!) {
-            favIcon.image = UIImage(data: data)
-        }
-        else {
-            let url = URL(string: GeneralURLs.fallbackFaviconURL)
-            let fallbackData = try? Data(contentsOf: url!)
-            favIcon.image = UIImage(data: fallbackData!)
-        }
-    }
-    
-    func configureSinglePost(_ post: HackerNewsSingleItem) {
-        url.text = post.url.StripURLMakeAttractive(post.url)
-        getFavIcon(post.url)
-        title.text = post.title
-        by.text = post.by
-        score.text = 0.convertToString(post.score)
-        descendants.text = 0.convertToString(post.descendants)
-        
-//        let titleSize: CGSize = title.sizeThatFits(title.bounds.size)
-//        print("Title Size:  \(titleSize.height)")
-        let titleWidth: CGFloat = title.sizeThatFits(title.bounds.size).width
-        
-        if titleWidth == 205.0 {
-            title.backgroundColor = .darkGray
-        }
-        if titleWidth == 252.5 {
-            title.backgroundColor = .brown
-        }
-        if titleWidth == 117.5 {
-            title.backgroundColor = .green
-        }
-        
-        if titleWidth == 590.0 {
-            title.backgroundColor = .cyan
-        }
-        
-        if titleWidth > 250 {
-//            print("title is: \(post.title)")
-        }
-        
-//        print("Width is: \(titleWidth)")
-    }
-    
-    func configurePostDetails() {
         title.translatesAutoresizingMaskIntoConstraints = false
         title.font = .systemFont(ofSize: 15, weight: .bold)
         title.textColor = UIColor.black
         title.isScrollEnabled = false
         title.isEditable = false
         contentView.addSubview(title)
+        
+        tempTitle.translatesAutoresizingMaskIntoConstraints = false
+        tempTitle.font = .systemFont(ofSize: 15, weight: .bold)
+        tempTitle.textColor = UIColor.black
+        tempTitle.isScrollEnabled = false
+        tempTitle.isEditable = false
+        contentView.addSubview(tempTitle)
+        
+        placeholderImage.translatesAutoresizingMaskIntoConstraints = false
+        placeholderImage.image = UIImage(named: "place")
+        placeholderImage.layer.borderWidth = 0.5
+        placeholderImage.layer.borderColor = UIColor.black.cgColor
+        placeholderImage.layer.cornerRadius = 5
+        contentView.addSubview(placeholderImage)
+        
+        NSLayoutConstraint.activate([
+            placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -5),
+            placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            placeholderImage.heightAnchor.constraint(equalToConstant: 80),
+            placeholderImage.widthAnchor.constraint(equalToConstant: 80)
+        ])
         
         by.translatesAutoresizingMaskIntoConstraints = false
         by.textColor = UIColor.black
@@ -141,12 +99,40 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         descendantsImage.image = UIImage(systemName: "bubble.right")
         contentView.addSubview(descendantsImage)
         
-    }
         
-    func configureStackView() {
+        configureStackView()
         
-        configurePostDetails()
 
+//      Sizes of Title are 34,52,70
+        
+    }
+    
+    
+    func getFavIcon(_ websiteDomain: String) {
+        let imageURL: String = GeneralURLs.googleFavIconFetcher + "\(websiteDomain)"
+        let url = URL(string: imageURL)
+        if let data = try? Data(contentsOf: url!) {
+            favIcon.image = UIImage(data: data)
+        }
+        else {
+            let url = URL(string: GeneralURLs.fallbackFaviconURL)
+            let fallbackData = try? Data(contentsOf: url!)
+            favIcon.image = UIImage(data: fallbackData!)
+        }
+    }
+    
+    func configureSinglePost(_ post: HackerNewsSingleItem) {
+        url.text = post.url.StripURLMakeAttractive(post.url)
+        getFavIcon(post.url)
+        title.text = post.title
+        by.text = post.by
+        score.text = 0.convertToString(post.score)
+        descendants.text = 0.convertToString(post.descendants)
+        
+    }
+    
+    func configureHeaderView() -> UIStackView {
+        
         let headerView: UIStackView = UIStackView(arrangedSubviews: [favIcon,url])
         
         headerView.axis = .horizontal
@@ -166,20 +152,41 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
             url.leadingAnchor.constraint(equalTo: favIcon.trailingAnchor)
         ])
         
+        return headerView
+    }
+    func configureFooterView() -> UIStackView {
+        
         let footerView: UIStackView = UIStackView(arrangedSubviews: [scoreImage,score,descendantsImage,descendants])
         
         footerView.axis = .horizontal
         footerView.alignment = .center
         
+        
         NSLayoutConstraint.activate([
+            scoreImage.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 5),
             scoreImage.heightAnchor.constraint(equalToConstant: 15),
-            scoreImage.widthAnchor.constraint(equalToConstant: 15)
+            scoreImage.widthAnchor.constraint(equalToConstant: 15),
         ])
         
         NSLayoutConstraint.activate([
+            score.leadingAnchor.constraint(equalTo: scoreImage.trailingAnchor, constant: 5)
+        ])
+        
+        NSLayoutConstraint.activate([
+            descendantsImage.leadingAnchor.constraint(equalTo: score.trailingAnchor,constant: 5),
             descendantsImage.heightAnchor.constraint(equalToConstant: 15),
             descendantsImage.widthAnchor.constraint(equalToConstant: 15)
         ])
+        
+        NSLayoutConstraint.activate([
+            descendants.leadingAnchor.constraint(equalTo: descendantsImage.trailingAnchor, constant: 5)
+        ])
+        
+        
+        return footerView
+    }
+    
+    func configureMainStack(headerView: UIStackView, footerView: UIStackView)  {
         
         let mainStack: UIStackView = UIStackView(arrangedSubviews: [headerView,title,by,footerView])
         
@@ -187,32 +194,23 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
         mainStack.axis = .vertical
         mainStack.distribution = .equalSpacing
         
-//        title.backgroundColor = .red
-        
-//        mainStack.setCustomSpacing(0, after: headerView)
-//        mainStack.setCustomSpacing(0, after: title)
-//        mainStack.setCustomSpacing(0, after: by)
         contentView.addSubview(mainStack)
         
-        placeholderImage.translatesAutoresizingMaskIntoConstraints = false
-        placeholderImage.image = UIImage(named: "place")
-        placeholderImage.layer.borderWidth = 0.5
-        placeholderImage.layer.borderColor = UIColor.black.cgColor
-        placeholderImage.layer.cornerRadius = 5
-        contentView.addSubview(placeholderImage)
-        
-        NSLayoutConstraint.activate([
-            placeholderImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            placeholderImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            placeholderImage.heightAnchor.constraint(equalToConstant: 80),
-            placeholderImage.widthAnchor.constraint(equalToConstant: 80)
-        ])
         
         NSLayoutConstraint.activate([
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainStack.topAnchor.constraint(equalTo: contentView.topAnchor),
             mainStack.trailingAnchor.constraint(equalTo: placeholderImage.leadingAnchor)
         ])
+        
+        
+    }
+
+    func configureStackView() {
+        
+        let headerView = configureHeaderView()
+        let footerView = configureFooterView()
+        configureMainStack(headerView: headerView, footerView: footerView)
         
     }
     

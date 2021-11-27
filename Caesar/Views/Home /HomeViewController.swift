@@ -7,7 +7,28 @@
 
 import UIKit
 
+
+
 class HomeViewController: UIViewController {
+    
+    struct HomeCellSizes {
+        static let small: CGFloat = 122
+        static let medium: CGFloat = 140
+        static let large: CGFloat = 158
+        
+        static func returnSize(_ size: CGFloat) -> CGFloat {
+            if size < 40 {
+                return small
+            }
+            else if size > 40 && size < 60 {
+                return medium
+            }
+            else {
+                return large
+            }
+        }
+        
+    }
     
     var homeModel: HomeModel = HomeModel()
     
@@ -35,9 +56,7 @@ class HomeViewController: UIViewController {
         layout.minimumInteritemSpacing = sectionPadding
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: sectionPadding, left: 0, bottom: sectionPadding, right: 0)
-        
-//        self.verticalLayoutConstraint.constant = self.collectionView.contentSize.height;
-        
+                
         postCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         postCollection.translatesAutoresizingMaskIntoConstraints = false
         postCollection.register(HomeSecondCollectionViewCell.self, forCellWithReuseIdentifier: postCollectionIdentifier)
@@ -61,9 +80,12 @@ class HomeViewController: UIViewController {
             
             self.Posts.append(post)
 //          I want to reload the page when 5:(arbitary/temp-number) posts are fetched from the server
-//            print("\n \n \n Posts.count: \(self.Posts.count) and official value is \(HomeModel.HomePagePostCount)")
             if self.Posts.count == HomeModel.HomePagePostCount || self.Posts.count == HomeModel.HomePagePostCount-2 || self.Posts.count > HomeModel.HomePagePostCount - 30 {
-//                print("\n \n \n \n Should reload Data \n ")
+                
+//                for post in self.Posts {
+//                    print("\n _______________________________________________________ \n post: \(post.title) \n count: \(post.title.count) \n _______________________________________________________ \n ")
+//                }
+                
                 self.postCollection.reloadData()
             }
         }
@@ -72,50 +94,24 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let post = Posts[indexPath.item]
-        print("indexPath is: \(indexPath)")
-        let cell = postCollection.dequeueReusableCell(withReuseIdentifier: postCollectionIdentifier, for: indexPath) as! HomeSecondCollectionViewCell
         
-        
-        let titleSize: CGFloat = cell.returnTitleSize(post)
-        
-        print("titleSize is: \(titleSize)")
-        
-        return CGSize(width: postCollection.frame.width, height: 150)
-//        let deciderTextView: UITextView = UITextView()
-//        deciderTextView.translatesAutoresizingMaskIntoConstraints = false
-//        deciderTextView.font = .systemFont(ofSize: 15, weight: .bold)
-//        deciderTextView.textColor = UIColor.black
-//        deciderTextView.isScrollEnabled = false
-//        deciderTextView.isEditable = false
-        
-//        deciderTextView.text = post.title
+        if post.title.count < 30 {
+            return CGSize(width: postCollection.frame.width, height: HomeCellSizes.small)
+        }
+        if post.title.count < 55 {
+            return CGSize(width: postCollection.frame.width, height: HomeCellSizes.medium)
+        }
+        else{
+            return CGSize(width: postCollection.frame.width, height: HomeCellSizes.large)
+        }
 
-//        NSLayoutConstraint.activate([
-//            deciderTextView.widthAnchor.constraint(equalToConstant: 254)
-//        ])
-        //      Sizes of Title are 34,52,70
-        
-//        let titleSize: CGSize = deciderTextView.sizeThatFits(deciderTextView.bounds.size)
-//        print("TitleSize is: \(titleSize.height) and title is: \(post.title)")
-//        print("TitleWidth Local is: \(titleSize.width)")
-        
-        
-//        if titleSize.height == 34 {
-//            print("In size 1")
-//            return CGSize(width: postCollection.frame.width, height: 170)
-//        }
-//        else if titleSize.height == 52 {
-//            print("In size 2")
-//            return CGSize(width: postCollection.frame.width, height: 170)
-//        }
-//        else {
-//            print("In size 3")
-//            return CGSize(width: postCollection.frame.width, height: 155)
-//        }
-//
     }
+    
+    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -131,7 +127,11 @@ extension HomeViewController: UICollectionViewDataSource {
         let cell = postCollection.dequeueReusableCell(withReuseIdentifier: postCollectionIdentifier, for: indexPath) as! HomeSecondCollectionViewCell
         let post = Posts[indexPath.item]
         cell.configureSinglePost(post)
+//        collectionView.collectionViewLayout.invalidateLayout()
+        
+        
         return cell
+        
     }
     
     
