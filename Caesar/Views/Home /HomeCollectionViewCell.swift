@@ -146,6 +146,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         by.text = post.by + " : " + String(post.title.count)
         score.text = post.score.convertToString(post.score)
         
+
     }
     
     func setUpPostConstraints() {

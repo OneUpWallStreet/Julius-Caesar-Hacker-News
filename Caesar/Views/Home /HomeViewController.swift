@@ -41,13 +41,10 @@ class HomeViewController: UIViewController {
         postCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         postCollection.translatesAutoresizingMaskIntoConstraints = false
         postCollection.register(HomeSecondCollectionViewCell.self, forCellWithReuseIdentifier: postCollectionIdentifier)
-//        postCollection.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: postCollectionIdentifier)
         postCollection.delegate = self
         postCollection.dataSource = self
         view.addSubview(postCollection)
-        
-//        postCollection.vertical
-        
+                
         
         NSLayoutConstraint.activate([
             postCollection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -74,20 +71,50 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
+   
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let post = Posts[indexPath.item]
-        let titleWordSize = post.title.count
+        print("indexPath is: \(indexPath)")
+        let cell = postCollection.dequeueReusableCell(withReuseIdentifier: postCollectionIdentifier, for: indexPath) as! HomeSecondCollectionViewCell
         
-        if titleWordSize <= 35 {
-            return CGSize(width: postCollection.frame.width, height: 140)
-        }
-        else if titleWordSize <= 65 {
-            return CGSize(width: postCollection.frame.width, height: 140)
-        }
-        else {
-            return CGSize(width: postCollection.frame.width, height: 140)
-        }
         
+        let titleSize: CGFloat = cell.returnTitleSize(post)
+        
+        print("titleSize is: \(titleSize)")
+        
+        return CGSize(width: postCollection.frame.width, height: 150)
+//        let deciderTextView: UITextView = UITextView()
+//        deciderTextView.translatesAutoresizingMaskIntoConstraints = false
+//        deciderTextView.font = .systemFont(ofSize: 15, weight: .bold)
+//        deciderTextView.textColor = UIColor.black
+//        deciderTextView.isScrollEnabled = false
+//        deciderTextView.isEditable = false
+        
+//        deciderTextView.text = post.title
+
+//        NSLayoutConstraint.activate([
+//            deciderTextView.widthAnchor.constraint(equalToConstant: 254)
+//        ])
+        //      Sizes of Title are 34,52,70
+        
+//        let titleSize: CGSize = deciderTextView.sizeThatFits(deciderTextView.bounds.size)
+//        print("TitleSize is: \(titleSize.height) and title is: \(post.title)")
+//        print("TitleWidth Local is: \(titleSize.width)")
+        
+        
+//        if titleSize.height == 34 {
+//            print("In size 1")
+//            return CGSize(width: postCollection.frame.width, height: 170)
+//        }
+//        else if titleSize.height == 52 {
+//            print("In size 2")
+//            return CGSize(width: postCollection.frame.width, height: 170)
+//        }
+//        else {
+//            print("In size 3")
+//            return CGSize(width: postCollection.frame.width, height: 155)
+//        }
+//
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
