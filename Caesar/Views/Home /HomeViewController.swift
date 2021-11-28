@@ -42,18 +42,23 @@ class HomeViewController: UIViewController {
                 completion(UIImage(data: fallbackData!)!)
             }
     }
-    
     var homeModel: HomeModel = HomeModel()
-    
+
 //  This array will get updated everytime homeModel.GetTopPosts() gets a response.
     var Posts: Array<PostData> = []
-    
     var postCollection: UICollectionView!
     let postCollectionIdentifier = "postCollectionIdentifier"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+//        title = "Home"
+        
+//        navigationController?.title = "Home"
+//        tabBarController?.title = "Home"
+        tabBarController?.navigationItem.largeTitleDisplayMode = "Home"
+//        navigationController.textcol
         
         LoadPosts()
         SetUpCollectionView()
@@ -140,7 +145,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         return 1
     }
 }
-
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Posts.count
