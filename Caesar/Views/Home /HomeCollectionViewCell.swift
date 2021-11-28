@@ -108,39 +108,36 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     
-    func getFavIcon(_ websiteDomain: String) {
-        let imageURL: String = GeneralURLs.googleFavIconFetcher + "\(websiteDomain)"
-        let url = URL(string: imageURL)
-//        DispatchQueue.global(qos: .userInitiated).async {
-            if let data = try? Data(contentsOf: url!) {
-//                DispatchQueue.main.async {
-                    favIcon.image = UIImage(data: data)
-//                }
-            }
-            else {
-                let url = URL(string: GeneralURLs.fallbackFaviconURL)
-                let fallbackData = try? Data(contentsOf: url!)
-//                DispatchQueue.main.async {
-                    favIcon.image = UIImage(data: fallbackData!)
-//                }
-            }
-//        }
-
-
-    }
-    
-    func configureSinglePost(_ post: HackerNewsSingleItem) {
-//        print("this is called")
-//        DispatchQueue.global(qos: .userInitiated).async {
-//            HomePageInteraction.GetWebsitePreviewPhoto(url: post.url) { image in
-//                DispatchQueue.main.async {
-//                    self.placeholderImage.image = image
-//                }
+//    func getFavIcon(_ websiteDomain: String) {
+//        let imageURL: String = GeneralURLs.googleFavIconFetcher + "\(websiteDomain)"
+//        let url = URL(string: imageURL)
+////        DispatchQueue.global(qos: .userInitiated).async {
+//            if let data = try? Data(contentsOf: url!) {
+////                DispatchQueue.main.async {
+//                    favIcon.image = UIImage(data: data)
+////                }
 //            }
-//        }
+//            else {
+//                let url = URL(string: GeneralURLs.fallbackFaviconURL)
+//                let fallbackData = try? Data(contentsOf: url!)
+////                DispatchQueue.main.async {
+//                    favIcon.image = UIImage(data: fallbackData!)
+////                }
+//            }
+////        }
+//
+//
+//    }
+    
+    func configureSinglePost(_ postData: PostData) {
+        
+        let post = postData.Post
+        
+        favIcon.image = postData.favIcon
+
+        placeholderImage.image = postData.placeholderImage
         
         url.text = post.url.StripURLMakeAttractive(post.url)
-        getFavIcon(post.url)
         title.text = post.title
         by.text = post.by
         score.text = 0.convertToString(post.score)

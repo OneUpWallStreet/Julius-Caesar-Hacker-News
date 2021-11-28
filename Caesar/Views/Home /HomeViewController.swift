@@ -30,10 +30,23 @@ class HomeViewController: UIViewController {
         
     }
     
+    func getFavIcon(_ websiteDomain: String,completion: @escaping (UIImage) -> Void){
+        let imageURL: String = GeneralURLs.googleFavIconFetcher + "\(websiteDomain)"
+        let url = URL(string: imageURL)
+            if let data = try? Data(contentsOf: url!) {
+                completion(UIImage(data: data)!)
+            }
+            else {
+                let url = URL(string: GeneralURLs.fallbackFaviconURL)
+                let fallbackData = try? Data(contentsOf: url!)
+                completion(UIImage(data: fallbackData!)!)
+            }
+    }
+    
     var homeModel: HomeModel = HomeModel()
     
 //  This array will get updated everytime homeModel.GetTopPosts() gets a response.
-    var Posts: Array<HackerNewsSingleItem> = []
+    var Posts: Array<PostData> = []
     
     var postCollection: UICollectionView!
     let postCollectionIdentifier = "postCollectionIdentifier"
@@ -78,14 +91,34 @@ class HomeViewController: UIViewController {
     private func LoadPosts() {
         homeModel.GetTopPosts { post in
             
-            self.Posts.append(post)
+            var postData: PostData = PostData(Post: post, favIcon: nil)
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                self.getFavIcon(post.url) { image in
+                    postData.favIcon = image
+                    let indexOfPost = self.Posts.firstIndex(where: { $0.Post == postData.Post })
+                    self.Posts[indexOfPost!] = postData
+                    DispatchQueue.main.async {
+                        self.postCollection.reloadData()
+                    }
+                }
+                
+                HomePageInteraction.GetWebsitePreviewPhoto(url: postData.Post.url, completion: { image in
+                    postData.placeholderImage = image
+                    
+                    let indexOfPost = self.Posts.firstIndex(where: {$0.Post == postData.Post})
+                    self.Posts[indexOfPost!] = postData
+                    DispatchQueue.main.async {
+                        self.postCollection.reloadData()
+                    }
+                    
+                })
+            }
+            
+            self.Posts.append(postData)
 //          I want to reload the page when 5:(arbitary/temp-number) posts are fetched from the server
             if self.Posts.count == HomeModel.HomePagePostCount || self.Posts.count == HomeModel.HomePagePostCount-2 || self.Posts.count > HomeModel.HomePagePostCount - 30 {
-                
-//                for post in self.Posts {
-//                    print("\n _______________________________________________________ \n post: \(post.title) \n count: \(post.title.count) \n _______________________________________________________ \n ")
-//                }
-                
                 self.postCollection.reloadData()
             }
         }
@@ -116,7 +149,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = postCollection.dequeueReusableCell(withReuseIdentifier: postCollectionIdentifier, for: indexPath) as! HomeCollectionViewCell
         let post = Posts[indexPath.item]
-        cell.configureSinglePost(post)        
+        cell.configureSinglePost(post)
         
         return cell
         

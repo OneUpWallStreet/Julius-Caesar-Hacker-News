@@ -11,7 +11,7 @@ import LinkPresentation
 class HomePageInteraction {
     
     static func ReturnPlaceholderPhoto() -> UIImage{
-        let placeholderImage: UIImage = UIImage(named: "placeholder")!
+        let placeholderImage: UIImage = UIImage(named: "place")!
         return placeholderImage
     }
     
@@ -62,17 +62,8 @@ class HomePageInteraction {
                         }
                     }
                 }
-                
-
             }
-            
-            
-            
         }
-        
-
-
-
     }
     
 //  This gets the top stories on Hacker news, it returns the post-ids in the completion
