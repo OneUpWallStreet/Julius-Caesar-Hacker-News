@@ -19,43 +19,58 @@ class HomePageInteraction {
         
             let provider = LPMetadataProvider()
             let url = URL(string: url)!
+                
+        DispatchQueue.main.async {
+            
             
             provider.startFetchingMetadata(for: url) { meta, error in
-    //          Something went wrong while fetching the image
-                if error != nil {
-//                  Returning default placeholder image
-                    let placeholderImage: UIImage = ReturnPlaceholderPhoto()
-                    completion(placeholderImage)
-                    return
-                }
                 
-                guard let imageProvider = meta?.imageProvider else {
-                    let placeholderImage: UIImage = ReturnPlaceholderPhoto()
-                    completion(placeholderImage)
-                    return
+                DispatchQueue.global(qos: .userInitiated).async {
                     
-                }
-                
-                imageProvider.loadObject(ofClass: UIImage.self) { (image,error) in
+        //          Something went wrong while fetching the image
                     if error != nil {
-//                      Returning default placeholder image
+    //                  Returning default placeholder image
                         let placeholderImage: UIImage = ReturnPlaceholderPhoto()
                         completion(placeholderImage)
                         return
                     }
                     
-                    if let image = image as? UIImage {
-                        completion(image)
-                        return
-                    }
-                    else{
-//                      Returning default placeholder image
+                    guard let imageProvider = meta?.imageProvider else {
                         let placeholderImage: UIImage = ReturnPlaceholderPhoto()
                         completion(placeholderImage)
                         return
+                        
+                    }
+                    
+                    imageProvider.loadObject(ofClass: UIImage.self) { (image,error) in
+                        if error != nil {
+    //                      Returning default placeholder image
+                            let placeholderImage: UIImage = ReturnPlaceholderPhoto()
+                            completion(placeholderImage)
+                            return
+                        }
+                        
+                        if let image = image as? UIImage {
+                            completion(image)
+                            return
+                        }
+                        else{
+    //                      Returning default placeholder image
+                            let placeholderImage: UIImage = ReturnPlaceholderPhoto()
+                            completion(placeholderImage)
+                            return
+                        }
                     }
                 }
+                
+
             }
+            
+            
+            
+        }
+        
+
 
 
     }

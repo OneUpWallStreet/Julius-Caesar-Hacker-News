@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeSecondCollectionViewCell: UICollectionViewCell {
+class HomeCollectionViewCell: UICollectionViewCell {
     
     
     let by: UITextView = UITextView()
@@ -111,23 +111,33 @@ class HomeSecondCollectionViewCell: UICollectionViewCell {
     func getFavIcon(_ websiteDomain: String) {
         let imageURL: String = GeneralURLs.googleFavIconFetcher + "\(websiteDomain)"
         let url = URL(string: imageURL)
-        if let data = try? Data(contentsOf: url!) {
-            favIcon.image = UIImage(data: data)
-        }
-        else {
-            let url = URL(string: GeneralURLs.fallbackFaviconURL)
-            let fallbackData = try? Data(contentsOf: url!)
-            favIcon.image = UIImage(data: fallbackData!)
-        }
+//        DispatchQueue.global(qos: .userInitiated).async {
+            if let data = try? Data(contentsOf: url!) {
+//                DispatchQueue.main.async {
+                    favIcon.image = UIImage(data: data)
+//                }
+            }
+            else {
+                let url = URL(string: GeneralURLs.fallbackFaviconURL)
+                let fallbackData = try? Data(contentsOf: url!)
+//                DispatchQueue.main.async {
+                    favIcon.image = UIImage(data: fallbackData!)
+//                }
+            }
+//        }
+
+
     }
     
     func configureSinglePost(_ post: HackerNewsSingleItem) {
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            HomePageInteraction.GetWebsitePreviewPhoto(url: post.url) { image in
-                self.placeholderImage.image = image
-            }
-        }
+//        print("this is called")
+//        DispatchQueue.global(qos: .userInitiated).async {
+//            HomePageInteraction.GetWebsitePreviewPhoto(url: post.url) { image in
+//                DispatchQueue.main.async {
+//                    self.placeholderImage.image = image
+//                }
+//            }
+//        }
         
         url.text = post.url.StripURLMakeAttractive(post.url)
         getFavIcon(post.url)

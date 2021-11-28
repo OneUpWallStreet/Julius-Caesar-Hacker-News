@@ -14,7 +14,7 @@ extension Int {
 }
 
 
-class HomeCollectionViewCell: UICollectionViewCell {
+class HomeCollectionViewOldCell: UICollectionViewCell {
         
     let score: UITextView = UITextView()
     let scoreImage: UIImageView = UIImageView()

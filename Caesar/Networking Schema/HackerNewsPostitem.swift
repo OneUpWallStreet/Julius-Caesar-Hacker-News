@@ -6,6 +6,15 @@
 //
 
 import Foundation
+import UIKit
+
+
+
+struct PostData {
+    var Post: HackerNewsSingleItem
+    var favIcon: UIImage?
+    var placeholderImage: UIImage?
+}
 
 //This is for getting hacker-news post using a referance id
 struct HackerNewsSingleItem: Codable {
@@ -19,6 +28,7 @@ struct HackerNewsSingleItem: Codable {
     let type: String
     let url: String
 }
+
 
 
 
