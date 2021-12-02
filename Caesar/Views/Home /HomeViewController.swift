@@ -57,7 +57,7 @@ class HomeViewController: UIViewController {
         
 //        navigationController?.title = "Home"
 //        tabBarController?.title = "Home"
-        tabBarController?.navigationItem.largeTitleDisplayMode = "Home"
+//        tabBarController?.navigationItem.largeTitleDisplayMode = "Home"
 //        navigationController.textcol
         
         LoadPosts()
